@@ -1,0 +1,3 @@
+export const ACTION_TYPE = {
+    REPLACE_RESULTS: 'REPLACE_RESULTS'
+}
