@@ -1,7 +1,13 @@
 import React from 'react';
 import '../assets/styles/search.css';
 
-function SearchFrom() {
+function SearchFrom(props) {
+  const inputRef = React.createRef();
+
+  const getPosts = () => {
+    props.getPosts(inputRef.current.value);
+  }
+
   return (
     <div className="search-container">
       <div>
@@ -9,10 +15,10 @@ function SearchFrom() {
       </div>
       <div className="search-form">
         <div className='search-item-container'>
-          <input className='search-input' type='text' />
+          <input className='search-input' type='text' ref={inputRef} />
         </div>
         <div className='search-item-container'>
-          <button className='search-button'>Search</button>
+          <button className='search-button' onClick={getPosts}>Search</button>
         </div>
       </div>
     </div>
