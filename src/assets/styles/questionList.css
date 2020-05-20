@@ -1,0 +1,7 @@
+.questionList-container {
+    margin-top: 16px;
+    align-content: center;
+    flex-direction: column;
+    align-items: center;
+    display: flex;
+}

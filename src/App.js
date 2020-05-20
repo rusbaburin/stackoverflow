@@ -14,7 +14,7 @@ function App() {
   return (
     <BrowserRouter>
       <Switch>
-        <Route exact path='/' component={SearchPage} />
+        <Route exact path={PAGE.SEARCH} component={SearchPage} />
         <Route exact path={`/${ PAGE.RESULTS }`} component={ResultsPage} />
         <Route component={() => <h1>404</h1>} />
       </Switch>

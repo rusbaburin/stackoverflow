@@ -10,6 +10,6 @@ async function request(urn) {
     return response.json();
 }
 
-export function getResults(title) {
-    return request(`search/advanced?order=desc&sort=activity&title=${ title }&site=stackoverflow`);
+export function getResults(title, page = 1) {
+    return request(`search/advanced?page=${ page }&order=desc&sort=votes&title=${ title }&site=stackoverflow`);
 }

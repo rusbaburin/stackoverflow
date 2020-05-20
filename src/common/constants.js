@@ -3,9 +3,12 @@ export const EXAPI = {
 }
 
 export const ACTION_TYPE = {
-    REPLACE_RESULTS: 'REPLACE_RESULTS'
+    ADD_RESULTS: 'ADD_RESULTS',
+    REPLACE_RESULTS: 'REPLACE_RESULTS',
+    SET_TITLE: 'SET_TITLE'
 }
 
 export const PAGE = {
+    SEARCH: '/',
     RESULTS: 'results'
 }

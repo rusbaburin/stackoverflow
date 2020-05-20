@@ -1,5 +1,6 @@
 import React from 'react';
 import '../assets/styles/search.css';
+import { Loader } from './Loader';
 
 function SearchFrom(props) {
   const inputRef = React.createRef();
@@ -13,12 +14,19 @@ function SearchFrom(props) {
       <div>
         <h1 className='search-title'>Search on stackoverflow</h1>
       </div>
-      <div className="search-form">
-        <div className='search-item-container'>
-          <input className='search-input' type='text' ref={inputRef} />
+      <div className='search-form-container'>
+        <div className="search-form">
+          <div className='search-item-container'>
+            <input className='search-input' type='text' ref={inputRef} />
+          </div>
+          <div className='search-item-container'>
+            <button className='search-button' onClick={getPosts}>Search</button>
+          </div>
         </div>
-        <div className='search-item-container'>
-          <button className='search-button' onClick={getPosts}>Search</button>
+        <div>
+          {
+            props.loading && <Loader />
+          }
         </div>
       </div>
     </div>

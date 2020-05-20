@@ -1,6 +1,13 @@
 import { ACTION_TYPE } from '../../common/constants';
 
-export const replaceResults = (results = []) => ({
+export const replaceResults = (items = [], page = 0) => ({
     type: ACTION_TYPE.REPLACE_RESULTS,
-    results
+    items,
+    page
+});
+
+export const addResults = (items = [], page = 0) => ({
+    type: ACTION_TYPE.ADD_RESULTS,
+    items,
+    page
 });

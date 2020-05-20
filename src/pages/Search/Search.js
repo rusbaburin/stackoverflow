@@ -1,6 +1,6 @@
 import React from 'react';
 
-import SearchFrom from '../../components/searchForm';
+import SearchFrom from '../../components/SearchForm';
 import { getResults } from '../../services/request';
 import { PAGE } from '../../common/constants';
 
@@ -9,14 +9,20 @@ export class _SearchPage extends React.Component {
         super(props);
 
         this.getPosts = this.getPosts.bind(this);
+
+        this.state = {
+            loading: false
+        }
     }
 
-    componentDidMount() {
-        this.props.replaceResults([]);
-    }
+    //TODO UNCOMMENT!!!
+    // componentDidMount() {
+    //     this.props.replaceResults([], 0);
+    //     this.props.setTitle('');
+    // }
 
     componentDidUpdate() {
-        if (this.props.results.length > 0)
+        if (this.props.results.items.length > 0)
             this.props.history.push(PAGE.RESULTS);
     }
 
@@ -26,19 +32,25 @@ export class _SearchPage extends React.Component {
         if (!title || title == '')
             return;
 
+        this.setState({ loading: true });
+
         try {
-            const response = await getResults(title);
-            const results = response.items;
+            const page = 1;
+            const response = await getResults(title, page);
+            const items = response.items;
+            this.setState({ loading: false });
             
-            this.props.replaceResults(results);
+            this.props.addResults(items, page);
+            this.props.setTitle(title);
         } catch(err) {
             console.error(err);
         }
+
     }
 
     render() {
         return (
-            <SearchFrom getPosts={this.getPosts} />
+            <SearchFrom getPosts={this.getPosts} loading={this.state.loading} />
         );
     }
 }

@@ -15,11 +15,13 @@
     font-size: 38px;
 }
 
+.search-form-container {
+    padding-bottom: 216px;
+}
 .search-form {
     display: flex;
     flex-direction: row;
     padding-top: 2px;
-    padding-bottom: 216px;
 }
 
 .search-item-container {

@@ -1,9 +1,25 @@
 import { ACTION_TYPE } from '../../common/constants';
 
-export const results = (state = [], action) => {
+const initialState = {
+    items: [],
+    page: 0
+}
+
+export const results = (state = initialState, action) => {
     switch(action.type) {
         case ACTION_TYPE.REPLACE_RESULTS :
-            return action.results;
+            return {
+                items: action.items,
+                page: action.page
+            };
+        case ACTION_TYPE.ADD_RESULTS :
+            return {
+                items: [
+                    ...state.items,
+                    ...action.items
+                ],
+                page: action.page
+            }
         default :
             return state;
     }
