@@ -13,6 +13,10 @@ code {
     monospace;
 }
 
+.red-warning {
+  color: #CC0033
+}
+
 .loader-container {
   position: absolute;
   width: 0;
@@ -25,4 +29,17 @@ code {
 .loader {
   width: 177px;
   margin-top: -12px;
+}
+
+.warning-container {
+  position: absolute;
+  width: 0;
+  height: 0;
+  text-align: center;
+  margin-left: -152px;
+  left: 50%;
+  cursor: pointer;
+}
+.warning {
+  width: 304px;
 }

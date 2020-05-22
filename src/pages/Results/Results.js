@@ -14,7 +14,8 @@ export class _ResultsPage extends React.Component {
         super(props);
 
         this.state = {
-            loading: false
+            loading: false,
+            lastItem: false
         }
 
         this.handleScroll = this.handleScroll.bind(this);
@@ -46,8 +47,12 @@ export class _ResultsPage extends React.Component {
             const response = await getResults(title, page);
             const items = response.items;
             
+            if (items.length == 0)
+                this.setState({ lastItem: true });
+            
             this.props.addResults(items, page);
         } catch(err) {
+            this.setState({ lastItem: true });
             console.error(err);
         }
 
@@ -57,6 +62,7 @@ export class _ResultsPage extends React.Component {
     handleScroll() {
         if (
             !this.state.loading &&
+            !this.state.lastItem &&
             (window.innerHeight + window.scrollY) >= document.body.offsetHeight - 500
         ) {
             this.getPosts();

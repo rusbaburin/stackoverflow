@@ -1,6 +1,7 @@
 import React from 'react';
 import '../assets/styles/search.css';
 import { Loader } from './Loader';
+import { Warning } from './Warning';
 
 function SearchFrom(props) {
   const inputRef = React.createRef();
@@ -24,9 +25,8 @@ function SearchFrom(props) {
           </div>
         </div>
         <div>
-          {
-            props.loading && <Loader />
-          }
+          { props.loading && <Loader /> }
+          { props.noItems && <Warning title='There are no results for this question' /> }
         </div>
       </div>
     </div>

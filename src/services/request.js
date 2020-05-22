@@ -11,5 +11,5 @@ async function request(urn) {
 }
 
 export function getResults(title, page = 1) {
-    return request(`search/advanced?page=${ page }&order=desc&sort=votes&title=${ title }&site=stackoverflow`);
+    return request(`search/advanced?page=${ page }&order=desc&sort=creation&title=${ title }&site=stackoverflow`);
 }

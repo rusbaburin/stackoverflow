@@ -11,15 +11,15 @@ export class _SearchPage extends React.Component {
         this.getPosts = this.getPosts.bind(this);
 
         this.state = {
-            loading: false
+            loading: false,
+            noItems: false
         }
     }
 
-    //TODO UNCOMMENT!!!
-    // componentDidMount() {
-    //     this.props.replaceResults([], 0);
-    //     this.props.setTitle('');
-    // }
+    componentDidMount() {
+        this.props.replaceResults([], 0);
+        this.props.setTitle('');
+    }
 
     componentDidUpdate() {
         if (this.props.results.items.length > 0)
@@ -32,17 +32,25 @@ export class _SearchPage extends React.Component {
         if (!title || title == '')
             return;
 
-        this.setState({ loading: true });
+        this.setState({
+            loading: true,
+            noItems: false
+        });
 
         try {
             const page = 1;
             const response = await getResults(title, page);
             const items = response.items;
+
+            if (items.length == 0)
+                this.setState({ noItems: true });
+
             this.setState({ loading: false });
             
             this.props.addResults(items, page);
             this.props.setTitle(title);
         } catch(err) {
+            this.setState({ noItems: true });
             console.error(err);
         }
 
@@ -50,7 +58,10 @@ export class _SearchPage extends React.Component {
 
     render() {
         return (
-            <SearchFrom getPosts={this.getPosts} loading={this.state.loading} />
+            <SearchFrom
+                getPosts={this.getPosts}
+                noItems={this.state.noItems}
+                loading={this.state.loading} />
         );
     }
 }
