@@ -10,5 +10,6 @@ export const ACTION_TYPE = {
 
 export const PAGE = {
     SEARCH: '/',
-    RESULTS: 'results'
+    RESULTS: '/results',
+    EXPLORE: '/explore'
 }

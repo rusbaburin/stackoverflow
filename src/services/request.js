@@ -13,3 +13,7 @@ async function request(urn) {
 export function getResults(title, page = 1) {
     return request(`search/advanced?page=${ page }&order=desc&sort=creation&title=${ title }&site=stackoverflow`);
 }
+
+export function getAnswers(questionId) {
+    return request(`questions/${ questionId }/answers?order=desc&sort=activity&site=stackoverflow&filter=!--1nZx2SAHs1`);
+}

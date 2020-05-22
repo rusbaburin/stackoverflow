@@ -13,6 +13,11 @@ code {
     monospace;
 }
 
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
 .red-warning {
   color: #CC0033
 }

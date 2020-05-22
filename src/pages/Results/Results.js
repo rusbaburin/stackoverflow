@@ -47,7 +47,7 @@ export class _ResultsPage extends React.Component {
             const response = await getResults(title, page);
             const items = response.items;
             
-            if (items.length == 0)
+            if (!response.hasMore)
                 this.setState({ lastItem: true });
             
             this.props.addResults(items, page);
