@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { PAGE } from '../../common/constants';
-import { getResults } from '../../services/request';
+import { getResults } from '../../services/client';
 
 import { Question } from '../../components/Question';
 import { Loader } from '../../components/Loader';

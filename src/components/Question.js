@@ -18,10 +18,10 @@ export function Question(props) {
                     { question.tags.map((tag, index) => <Tag key={index} title={tag} />) }
                 </div>
             </div>
-            <div className='question-answers-container'>
+            <Link className='question-answers-container' to={ `${PAGE.EXPLORE }/${ question.question_id }` }>
                 <div>Answers</div>
                 <div>{ question.answer_count }</div>
-            </div>
+            </Link>
         </div>
     );
 }

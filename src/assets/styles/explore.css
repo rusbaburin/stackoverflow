@@ -1,0 +1,38 @@
+.explore-container {
+    margin: 78px 0;
+}
+.explore-title {
+    font-size: 36px;
+}
+
+.explore-info-container {
+    flex-direction: column;
+    align-items: center;
+    display: flex;
+}
+
+.answers-container, .explore-info {
+    padding: 12px 0;
+    text-align: left;
+    width: 80%;
+    max-width: 1200px;
+}
+
+.answers-title {
+    text-align: left;
+    margin: 0;
+}
+
+.explore-info {
+    border-bottom: 1px solid #696969;
+    margin-top: 0;
+    margin-bottom: 8px;
+    padding-bottom: 16px;
+}
+.answer-container {
+    border-bottom: 1px solid #b7b7b7;
+    padding: 7px 0;
+}
+.answer-container:last-child {
+    border-bottom: none;
+}

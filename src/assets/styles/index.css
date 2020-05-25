@@ -11,15 +11,27 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+  background-color: #dedede;
+  padding: 1px 3px;
 }
 
-a {
-  text-decoration: none;
-  color: inherit;
+pre {
+  background-color: #dedede;
+  padding: 11px 24px;
 }
 
 .red-warning {
   color: #CC0033
+}
+.yellow-warning {
+  color: #e2c018
+}
+
+.red-serviceWarning {
+  background-color: #CC0033 !important
+}
+.yellow-serviceWarning {
+  background-color: #e2c018 !important
 }
 
 .loader-container {
@@ -47,4 +59,14 @@ a {
 }
 .warning {
   width: 304px;
+}
+
+.serviceMessage {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 10;
+  background-color: lightblue;
+  padding: 5px 11px;
+  border-radius: 0px 0px 12px 0px;
 }

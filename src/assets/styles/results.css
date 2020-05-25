@@ -4,3 +4,8 @@
 .results-title {
     font-size: 42px;
 }
+
+.results-container a {
+    text-decoration: none;
+    color: inherit;
+}

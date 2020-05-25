@@ -1,8 +1,9 @@
 import React from 'react';
 
 import SearchFrom from '../../components/SearchForm';
-import { getResults } from '../../services/request';
+import { getResults } from '../../services/client';
 import { PAGE } from '../../common/constants';
+import { ServiceMessage } from '../../components/ServiceMessage';
 
 export class _SearchPage extends React.Component {
     constructor(props) {
@@ -12,7 +13,8 @@ export class _SearchPage extends React.Component {
 
         this.state = {
             loading: false,
-            noItems: false
+            noItems: false,
+            serviceError: false
         }
     }
 
@@ -50,18 +52,27 @@ export class _SearchPage extends React.Component {
             this.props.addResults(items, page);
             this.props.setTitle(title);
         } catch(err) {
-            this.setState({ noItems: true });
+            this.setState({
+                noItems: true,
+                loading: false,
+                serviceError: true
+            });
             console.error(err);
         }
 
     }
 
     render() {
+        const { noItems, loading, serviceError } = this.state;
+
         return (
-            <SearchFrom
-                getPosts={this.getPosts}
-                noItems={this.state.noItems}
-                loading={this.state.loading} />
+            <>
+                { serviceError && <ServiceMessage title='Unexpected error' type='error' /> }
+                <SearchFrom
+                    getPosts={this.getPosts}
+                    noItems={this.state.noItems}
+                    loading={this.state.loading} />
+            </>
         );
     }
 }
