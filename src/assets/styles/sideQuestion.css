@@ -1,0 +1,29 @@
+.sideQuestion-container {
+    display: inline-flex;
+    width: 80%;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 26px 0;
+    border-bottom: 1px solid #ccc;
+}
+.sideQuestion-container:last-child {
+    border-bottom: none;
+}
+
+.sideQuestion-info-container {
+    text-align: left;
+}
+
+.sideQuestion-title {
+    margin-bottom: 4px;
+    padding-right: 4px;
+    margin-top: 0px;
+    line-height: 1.2;
+    cursor: pointer;
+    text-decoration: none;
+}
+.sideQuestion-author {
+    margin-top: 6px;
+    padding-right: 2px;
+    color: #000;
+}

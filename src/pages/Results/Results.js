@@ -6,6 +6,7 @@ import { getResults, getUserPosts, getTagPosts } from '../../services/client';
 import { Question } from '../../components/Question';
 import { Loader } from '../../components/Loader';
 import { SideBar } from '../../components/SideBar';
+import { ServiceMessage } from '../../components/ServiceMessage';
 
 import '../../assets/styles/results.css';
 import '../../assets/styles/questionList.css';
@@ -16,6 +17,9 @@ export class _ResultsPage extends React.Component {
 
         this.state = {
             loading: false,
+            sideLoading: false,
+            showSideBar: false,
+            serviceError: false,
             lastItem: false
         }
 
@@ -40,20 +44,51 @@ export class _ResultsPage extends React.Component {
     }
 
     async handleUserPosts(userId) {
-        const response = await getUserPosts(userId);
-        console.log(response);
+        this.setState({
+            sideLoading: true,
+            showSideBar: true,
+            serviceError: false
+        });
+
+        try {
+            const response = await getUserPosts(userId);
+            const questions = response.items;
+            this.props.replaceSideResults(questions);
+        } catch (err) {
+            this.setState({ serviceError: true });
+            console.error(err);
+        }
+
+        this.setState({ sideLoading: false });
     }
 
     async handleTagPosts(tag) {
-        const response = await getTagPosts(tag);
-        console.log(response);
+        this.setState({
+            sideLoading: true,
+            showSideBar: true,
+            serviceError: false
+        });
+
+        try {
+            const response = await getTagPosts(tag);
+            const questions = response.items;
+            this.props.replaceSideResults(questions);
+        } catch (err) {
+            this.setState({ serviceError: true });
+            console.error(err);
+        }
+
+        this.setState({ sideLoading: false });
     }
 
     async getPosts() {
         const results = this.props.results;
         const title = this.props.title;
 
-        this.setState({ loading: true });
+        this.setState({
+            loading: true,
+            serviceError: false
+        });
 
         try {
             const page = results.page + 1;
@@ -65,7 +100,10 @@ export class _ResultsPage extends React.Component {
             
             this.props.addResults(items, page);
         } catch(err) {
-            this.setState({ lastItem: true });
+            this.setState({
+                lastItem: true,
+                serviceError: true
+            });
             console.error(err);
         }
 
@@ -84,6 +122,7 @@ export class _ResultsPage extends React.Component {
 
     render() {
         const results = this.props.results;
+        const sideResults = this.props.sideResults;
         const title = this.props.title;
 
         if (results.items.length == 0)
@@ -103,8 +142,12 @@ export class _ResultsPage extends React.Component {
                             )
                     }
                 </div>
-                { <SideBar /> }
+                <SideBar
+                    display={this.state.showSideBar}
+                    loading={this.state.sideLoading}
+                    items={sideResults} />
                 { this.state.loading && <Loader /> }
+                { this.state.serviceError && <ServiceMessage title='Unexpected error' type='error' /> }
             </div>
         );
     }

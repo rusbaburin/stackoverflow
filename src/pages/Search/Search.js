@@ -18,11 +18,6 @@ export class _SearchPage extends React.Component {
         }
     }
 
-    componentDidMount() {
-        // this.props.replaceResults([], 0);
-        // this.props.setTitle('');
-    }
-
     componentDidUpdate() {
         if (this.props.results.items.length > 0)
             this.props.history.push(PAGE.RESULTS);
@@ -36,7 +31,8 @@ export class _SearchPage extends React.Component {
 
         this.setState({
             loading: true,
-            noItems: false
+            noItems: false,
+            serviceError: false
         });
 
         try {

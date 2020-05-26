@@ -1,7 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+
 import '../assets/styles/question.css';
 import { Tag } from './Tag';
-import { Link } from 'react-router-dom';
 import { PAGE } from '../common/constants';
 
 export function Question(props) {

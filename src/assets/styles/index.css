@@ -13,6 +13,7 @@ code {
     monospace;
   background-color: #dedede;
   padding: 1px 3px;
+  white-space: pre-wrap;
 }
 
 pre {
