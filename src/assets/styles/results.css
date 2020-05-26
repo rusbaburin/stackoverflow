@@ -9,3 +9,17 @@
     text-decoration: none;
     color: inherit;
 }
+
+.results-sidebar-container {
+    position: fixed;
+    z-index: 2;
+    left: 0;
+    top: 0;
+    height: 100%;
+    overflow-y: scroll;
+    width: 429px;
+    margin-left: -429px;
+    background-color: #fcfcfc;
+    border-right: 1px solid #ccc;
+    box-shadow: 0 1px 8px 0 rgba(32, 33, 36, .4);
+}

@@ -1,10 +1,11 @@
 import React from 'react';
 
 import { PAGE } from '../../common/constants';
-import { getResults } from '../../services/client';
+import { getResults, getUserPosts, getTagPosts } from '../../services/client';
 
 import { Question } from '../../components/Question';
 import { Loader } from '../../components/Loader';
+import { SideBar } from '../../components/SideBar';
 
 import '../../assets/styles/results.css';
 import '../../assets/styles/questionList.css';
@@ -20,6 +21,8 @@ export class _ResultsPage extends React.Component {
 
         this.handleScroll = this.handleScroll.bind(this);
         this.getPosts = this.getPosts.bind(this);
+        this.handleUserPosts = this.handleUserPosts.bind(this);
+        this.handleTagPosts = this.handleTagPosts.bind(this);
     }
 
     componentDidMount() {
@@ -34,6 +37,16 @@ export class _ResultsPage extends React.Component {
 
     componentWillUnmount() {
         document.removeEventListener('scroll', this.handleScroll);
+    }
+
+    async handleUserPosts(userId) {
+        const response = await getUserPosts(userId);
+        console.log(response);
+    }
+
+    async handleTagPosts(tag) {
+        const response = await getTagPosts(tag);
+        console.log(response);
     }
 
     async getPosts() {
@@ -81,9 +94,16 @@ export class _ResultsPage extends React.Component {
                 <h1 className='results-title'>Results for &quot;{title}&quot;</h1>
                 <div className='questionList-container'>
                     {
-                        results.items.map(result => <Question key={result.question_id} question={result} />)
+                        results.items.map(result =>
+                            <Question
+                                key={result.question_id}
+                                getUserPosts={this.handleUserPosts}
+                                getTagPosts={this.handleTagPosts}
+                                question={result} />
+                            )
                     }
                 </div>
+                { <SideBar /> }
                 { this.state.loading && <Loader /> }
             </div>
         );

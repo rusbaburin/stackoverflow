@@ -19,8 +19,8 @@ export class _SearchPage extends React.Component {
     }
 
     componentDidMount() {
-        this.props.replaceResults([], 0);
-        this.props.setTitle('');
+        // this.props.replaceResults([], 0);
+        // this.props.setTitle('');
     }
 
     componentDidUpdate() {
@@ -49,7 +49,7 @@ export class _SearchPage extends React.Component {
 
             this.setState({ loading: false });
             
-            this.props.addResults(items, page);
+            this.props.replaceResults(items, page);
             this.props.setTitle(title);
         } catch(err) {
             this.setState({

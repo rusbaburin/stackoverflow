@@ -21,3 +21,11 @@ export function getAnswersService(questionId) {
 export function getQuestionInfoService(questionId) {
     return request(`questions/${ questionId }?order=desc&sort=activity&site=stackoverflow&filter=!9_bDDxJY5`);
 }
+
+export function getUserPostsService(userId) {
+    return request(`users/${ userId }/questions?order=desc&sort=activity&site=stackoverflow`);
+}
+
+export function getTagPostsService(tag) {
+    return request(`tags/${ tag }/faq?site=stackoverflow`);
+}
