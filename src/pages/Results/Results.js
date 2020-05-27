@@ -27,6 +27,7 @@ export class _ResultsPage extends React.Component {
         this.getPosts = this.getPosts.bind(this);
         this.handleUserPosts = this.handleUserPosts.bind(this);
         this.handleTagPosts = this.handleTagPosts.bind(this);
+        this.closeSideBar = this.closeSideBar.bind(this);
     }
 
     componentDidMount() {
@@ -41,6 +42,10 @@ export class _ResultsPage extends React.Component {
 
     componentWillUnmount() {
         document.removeEventListener('scroll', this.handleScroll);
+    }
+
+    closeSideBar() {
+        this.setState({ showSideBar: false });
     }
 
     async handleUserPosts(userId) {
@@ -143,6 +148,7 @@ export class _ResultsPage extends React.Component {
                     }
                 </div>
                 <SideBar
+                    closeSideBar={this.closeSideBar}
                     display={this.state.showSideBar}
                     loading={this.state.sideLoading}
                     items={sideResults} />

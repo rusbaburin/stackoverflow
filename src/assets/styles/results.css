@@ -21,10 +21,20 @@
     background-color: #fcfcfc;
     border-right: 1px solid #ccc;
     box-shadow: 0 1px 8px 0 rgba(32, 33, 36, .4);
+    transition: margin-left .2s ease-out 0.1s;
 }
 .results-sidebar-container_faded {
     margin-left: -429px;
 }
 .results-sidebar-container_displayed {
     margin-left: 0px;
+}
+
+.sidebar-close-container {
+    text-align: right;
+}
+.sidebar-close-icon {
+    padding: 15px 21px 1px 21px;
+    color: #CC0033;
+    cursor: pointer;
 }

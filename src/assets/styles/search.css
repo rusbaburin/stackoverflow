@@ -60,5 +60,7 @@
     outline: none;
 }
 .search-button:hover {
-    background-color: #1686de;
+    background-color: #1f76bd;
+    background: -webkit-linear-gradient(#63b2f1, #197ac7);
+    background: linear-gradient(#63b2f1, #197ac7);
 }
