@@ -2,14 +2,18 @@ import React from 'react';
 
 import { Loader } from './Loader';
 import { SideQuestion } from './SideQuestion';
+import { SortComponent } from './Sort';
 
-export function SideBar({ items, loading, display, closeSideBar }) {
+export function SideBar({ items, loading, display, closeSideBar, sort, sortSideResults }) {
     const displayClass = display ? 'results-sidebar-container_displayed' : 'results-sidebar-container_faded';
 
     return (
         <div className={`results-sidebar-container ${ displayClass }`}>
             <div className='sidebar-close-container'>
                 <div className='sidebar-close-icon' onClick={closeSideBar}>&#x2715;</div>
+            </div>
+            <div className='sidebar-sort-container'>
+                <SortComponent sort={sort} sortResults={sortSideResults} />
             </div>
             {
                 !loading && items.map(item => <SideQuestion question={item} />)

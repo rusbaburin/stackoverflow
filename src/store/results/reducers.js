@@ -3,7 +3,7 @@ import { ACTION_TYPE, SORT } from '../../common/constants';
 const initialState = {
     items: [],
     page: 0,
-    sort: SORT.RELEVANCE
+    sort: SORT.ACTIVITY
 }
 
 export const results = (state = initialState, action) => {

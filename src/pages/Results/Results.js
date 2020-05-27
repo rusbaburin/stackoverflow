@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { PAGE, SORT } from '../../common/constants';
+import { PAGE, SORT, SIDEBAR_TYPE } from '../../common/constants';
 import { getResults, getUserPosts, getTagPosts } from '../../services/client';
 
 import { Question } from '../../components/Question';
@@ -20,6 +20,7 @@ export class _ResultsPage extends React.Component {
             loading: false,
             sideLoading: false,
             showSideBar: false,
+            sideBarType: undefined,
             serviceError: false,
             lastItem: false
         }
@@ -30,6 +31,7 @@ export class _ResultsPage extends React.Component {
         this.handleTagPosts = this.handleTagPosts.bind(this);
         this.closeSideBar = this.closeSideBar.bind(this);
         this.sortResults = this.sortResults.bind(this);
+        this.sortSideResults = this.sortSideResults.bind(this);
     }
 
     componentDidMount() {
@@ -54,13 +56,14 @@ export class _ResultsPage extends React.Component {
         this.setState({
             sideLoading: true,
             showSideBar: true,
-            serviceError: false
+            serviceError: false,
+            sideBarType: SIDEBAR_TYPE.USER
         });
 
         try {
-            const response = await getUserPosts(userId);
+            const response = await getUserPosts(userId, SORT.ACTIVITY);
             const questions = response.items;
-            this.props.replaceSideResults(questions);
+            this.props.replaceSideResults(questions, SORT.ACTIVITY);
         } catch (err) {
             this.setState({ serviceError: true });
             console.error(err);
@@ -73,13 +76,14 @@ export class _ResultsPage extends React.Component {
         this.setState({
             sideLoading: true,
             showSideBar: true,
-            serviceError: false
+            serviceError: false,
+            sideBarType: SIDEBAR_TYPE.TAG
         });
 
         try {
             const response = await getTagPosts(tag);
             const questions = response.items;
-            this.props.replaceSideResults(questions);
+            this.props.replaceSideResults(questions, SORT.ACTIVITY);
         } catch (err) {
             this.setState({ serviceError: true });
             console.error(err);
@@ -88,7 +92,31 @@ export class _ResultsPage extends React.Component {
         this.setState({ sideLoading: false });
     }
 
-    async sortResults(sort = SORT.RELEVANCE) {
+    async sortSideResults(sort = SORT.ACTIVITY) {
+        if (this.state.sideBarType == SIDEBAR_TYPE.TAG) {
+            this.props.replaceSideResults(this.props.sideResults.items, sort);
+            return;
+        }
+
+        this.setState({
+            sideLoading: true,
+            serviceError: false
+        });
+
+        try {
+            const userId = this.props.sideResults.items[0].owner.user_id;
+            const response = await getUserPosts(userId, sort);
+            const questions = response.items;
+            this.props.replaceSideResults(questions, sort);
+        } catch (err) {
+            this.setState({ serviceError: true });
+            console.error(err);
+        }
+
+        this.setState({ sideLoading: false });
+    }
+
+    async sortResults(sort = SORT.ACTIVITY) {
         this.setState({
             loading: true,
             serviceError: false
@@ -176,7 +204,9 @@ export class _ResultsPage extends React.Component {
                     closeSideBar={this.closeSideBar}
                     display={this.state.showSideBar}
                     loading={this.state.sideLoading}
-                    items={sideResults} />
+                    sort={sideResults.sort}
+                    sortSideResults={this.sortSideResults}
+                    items={sideResults.items} />
                 { this.state.loading && <Loader /> }
                 { this.state.serviceError && <ServiceMessage title='Unexpected error' type='error' /> }
             </div>

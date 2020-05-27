@@ -37,7 +37,7 @@ export class _SearchPage extends React.Component {
 
         try {
             const page = 1;
-            const sort = SORT.RELEVANCE;
+            const sort = SORT.ACTIVITY;
             const response = await getResults(title, page, sort);
             const items = response.items;
 

@@ -43,7 +43,6 @@ export class _ExplorePage extends React.Component {
 
     render() {
         const { questionInfo, answers, serviceError } = this.state;
-        console.log(questionInfo);
 
         if ( (!questionInfo || !answers) && !serviceError)
             return <Loader />

@@ -1,6 +1,7 @@
-import { ACTION_TYPE } from '../../common/constants';
+import { ACTION_TYPE, SORT } from '../../common/constants';
 
-export const replaceSideResults = (items = []) => ({
+export const replaceSideResults = (items = [], sort = SORT.ACTIVITY) => ({
     type: ACTION_TYPE.REPLACE_SIDERESULTS,
     items,
+    sort
 });

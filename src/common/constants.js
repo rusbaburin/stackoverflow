@@ -16,6 +16,11 @@ export const PAGE = {
 }
 
 export const SORT = {
-    RELEVANCE: 'relevance',
-    CREATION: 'creation'
+    CREATION: 'creation',
+    ACTIVITY: 'activity'
+}
+
+export const SIDEBAR_TYPE = {
+    TAG: 'tags',
+    USER: 'user'
 }

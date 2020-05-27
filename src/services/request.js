@@ -10,7 +10,7 @@ async function request(urn) {
     return response.json();
 }
 
-export function getResultsService(title, page = 1, sort = SORT.RELEVANCE) {
+export function getResultsService(title, page = 1, sort = SORT.ACTIVITY) {
     return request(`search/advanced?page=${ page }&order=desc&sort=${ sort }&title=${ title }&site=stackoverflow`);
 }
 
@@ -22,8 +22,8 @@ export function getQuestionInfoService(questionId) {
     return request(`questions/${ questionId }?order=desc&sort=activity&site=stackoverflow&filter=!9_bDDxJY5`);
 }
 
-export function getUserPostsService(userId) {
-    return request(`users/${ userId }/questions?order=desc&sort=activity&site=stackoverflow`);
+export function getUserPostsService(userId, sort = SORT.ACTIVITY) {
+    return request(`users/${ userId }/questions?order=desc&sort=${ sort }&site=stackoverflow`);
 }
 
 export function getTagPostsService(tag) {

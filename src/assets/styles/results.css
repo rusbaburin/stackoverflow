@@ -1,6 +1,6 @@
 .results-container {
     margin-top: 78px;
-    max-width: 1200px;
+    width: 1200px;
     display: inline-block;
 }
 .results-title {
@@ -39,4 +39,9 @@
     padding: 15px 21px 1px 21px;
     color: #CC0033;
     cursor: pointer;
+}
+
+.sidebar-sort-container {
+    margin-top: 6px;
+    display: inline-block;
 }

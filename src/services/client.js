@@ -7,7 +7,7 @@ import {
 } from './request';
 import { SORT } from '../common/constants';
 
-export function getResults(title, page = 1, sort = SORT.RELEVANCE) {
+export function getResults(title, page = 1, sort = SORT.ACTIVITY) {
     return getResultsService(title, page, sort);
 }
 
@@ -15,8 +15,8 @@ export function getAnswers(questionId) {
     return getAnswersService(questionId);
 }
 
-export function getUserPosts(userId) {
-    return getUserPostsService(userId);
+export function getUserPosts(userId, sort = SORT.ACTIVITY) {
+    return getUserPostsService(userId, sort);
 }
 
 export function getTagPosts(tag) {
