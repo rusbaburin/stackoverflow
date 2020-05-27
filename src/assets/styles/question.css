@@ -1,10 +1,8 @@
 .question-container {
     display: inline-flex;
-    width: 80%;
     flex-direction: row;
     justify-content: space-between;
     padding: 44px 0;
-    max-width: 1200px;
     border-bottom: 1px solid #ccc;
 }
 .question-container:last-child {

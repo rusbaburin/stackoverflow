@@ -1,8 +1,9 @@
-import { ACTION_TYPE } from '../../common/constants';
+import { ACTION_TYPE, SORT } from '../../common/constants';
 
 const initialState = {
     items: [],
-    page: 0
+    page: 0,
+    sort: SORT.RELEVANCE
 }
 
 export const results = (state = initialState, action) => {
@@ -10,7 +11,8 @@ export const results = (state = initialState, action) => {
         case ACTION_TYPE.REPLACE_RESULTS :
             return {
                 items: action.items,
-                page: action.page
+                page: action.page,
+                sort: action.sort
             };
         case ACTION_TYPE.ADD_RESULTS :
             return {
@@ -18,7 +20,8 @@ export const results = (state = initialState, action) => {
                     ...state.items,
                     ...action.items
                 ],
-                page: action.page
+                page: action.page,
+                sort: action.sort
             }
         default :
             return state;

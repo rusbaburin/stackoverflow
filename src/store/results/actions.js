@@ -1,13 +1,15 @@
-import { ACTION_TYPE } from '../../common/constants';
+import { ACTION_TYPE, SORT } from '../../common/constants';
 
-export const replaceResults = (items = [], page = 0) => ({
+export const replaceResults = (items = [], page = 0, sort = SORT.RELEVANCE) => ({
     type: ACTION_TYPE.REPLACE_RESULTS,
     items,
-    page
+    page,
+    sort
 });
 
-export const addResults = (items = [], page = 0) => ({
+export const addResults = (items = [], page = 0, sort = SORT.RELEVANCE) => ({
     type: ACTION_TYPE.ADD_RESULTS,
     items,
-    page
+    page,
+    sort
 });

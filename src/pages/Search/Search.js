@@ -2,7 +2,7 @@ import React from 'react';
 
 import SearchFrom from '../../components/SearchForm';
 import { getResults } from '../../services/client';
-import { PAGE } from '../../common/constants';
+import { PAGE, SORT } from '../../common/constants';
 import { ServiceMessage } from '../../components/ServiceMessage';
 
 export class _SearchPage extends React.Component {
@@ -37,7 +37,8 @@ export class _SearchPage extends React.Component {
 
         try {
             const page = 1;
-            const response = await getResults(title, page);
+            const sort = SORT.RELEVANCE;
+            const response = await getResults(title, page, sort);
             const items = response.items;
 
             if (items.length == 0)
@@ -45,7 +46,7 @@ export class _SearchPage extends React.Component {
 
             this.setState({ loading: false });
             
-            this.props.replaceResults(items, page);
+            this.props.replaceResults(items, page, sort);
             this.props.setTitle(title);
         } catch(err) {
             this.setState({

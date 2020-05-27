@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { PAGE } from '../../common/constants';
+import { PAGE, SORT } from '../../common/constants';
 import { getResults, getUserPosts, getTagPosts } from '../../services/client';
 
 import { Question } from '../../components/Question';
@@ -10,6 +10,7 @@ import { ServiceMessage } from '../../components/ServiceMessage';
 
 import '../../assets/styles/results.css';
 import '../../assets/styles/questionList.css';
+import { SortComponent } from '../../components/Sort';
 
 export class _ResultsPage extends React.Component {
     constructor(props) {
@@ -24,10 +25,11 @@ export class _ResultsPage extends React.Component {
         }
 
         this.handleScroll = this.handleScroll.bind(this);
-        this.getPosts = this.getPosts.bind(this);
+        this.getNextPosts = this.getNextPosts.bind(this);
         this.handleUserPosts = this.handleUserPosts.bind(this);
         this.handleTagPosts = this.handleTagPosts.bind(this);
         this.closeSideBar = this.closeSideBar.bind(this);
+        this.sortResults = this.sortResults.bind(this);
     }
 
     componentDidMount() {
@@ -86,7 +88,28 @@ export class _ResultsPage extends React.Component {
         this.setState({ sideLoading: false });
     }
 
-    async getPosts() {
+    async sortResults(sort = SORT.RELEVANCE) {
+        this.setState({
+            loading: true,
+            serviceError: false
+        });
+
+        try {
+            const page = 1;
+            const title = this.props.title;
+            const response = await getResults(title, page, sort);
+            const items = response.items;
+            
+            this.props.replaceResults(items, page, sort);
+        } catch(err) {
+            this.setState({ serviceError: true });
+            console.error(err);
+        }
+
+        this.setState({ loading: false });
+    }
+
+    async getNextPosts() {
         const results = this.props.results;
         const title = this.props.title;
 
@@ -97,13 +120,14 @@ export class _ResultsPage extends React.Component {
 
         try {
             const page = results.page + 1;
-            const response = await getResults(title, page);
+            const sort = results.sort;
+            const response = await getResults(title, page, sort);
             const items = response.items;
-            
-            if (!response.hasMore)
+
+            if (!response.has_more)
                 this.setState({ lastItem: true });
             
-            this.props.addResults(items, page);
+            this.props.addResults(items, page, sort);
         } catch(err) {
             this.setState({
                 lastItem: true,
@@ -121,7 +145,7 @@ export class _ResultsPage extends React.Component {
             !this.state.lastItem &&
             (window.innerHeight + window.scrollY) >= document.body.offsetHeight - 500
         ) {
-            this.getPosts();
+            this.getNextPosts();
         }
     }
 
@@ -136,6 +160,7 @@ export class _ResultsPage extends React.Component {
         return (
             <div className='results-container'>
                 <h1 className='results-title'>Results for &quot;{title}&quot;</h1>
+                <SortComponent sortResults={this.sortResults} sort={results.sort} />
                 <div className='questionList-container'>
                     {
                         results.items.map(result =>

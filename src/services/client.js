@@ -5,9 +5,10 @@ import {
     getUserPostsService,
     getTagPostsService
 } from './request';
+import { SORT } from '../common/constants';
 
-export function getResults(title, page = 1) {
-    return getResultsService(title, page);
+export function getResults(title, page = 1, sort = SORT.RELEVANCE) {
+    return getResultsService(title, page, sort);
 }
 
 export function getAnswers(questionId) {

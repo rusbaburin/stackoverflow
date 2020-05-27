@@ -1,4 +1,4 @@
-import { EXAPI } from "../common/constants";
+import { EXAPI, SORT } from "../common/constants";
 
 async function request(urn) {
     const response = await fetch(`${ EXAPI.STACKEXCHANGE }/${ urn }`);
@@ -10,8 +10,8 @@ async function request(urn) {
     return response.json();
 }
 
-export function getResultsService(title, page = 1) {
-    return request(`search/advanced?page=${ page }&order=desc&sort=creation&title=${ title }&site=stackoverflow`);
+export function getResultsService(title, page = 1, sort = SORT.RELEVANCE) {
+    return request(`search/advanced?page=${ page }&order=desc&sort=${ sort }&title=${ title }&site=stackoverflow`);
 }
 
 export function getAnswersService(questionId) {

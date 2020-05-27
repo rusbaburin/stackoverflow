@@ -14,3 +14,8 @@ export const PAGE = {
     RESULTS: '/results',
     EXPLORE: '/explore'
 }
+
+export const SORT = {
+    RELEVANCE: 'relevance',
+    CREATION: 'creation'
+}

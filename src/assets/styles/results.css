@@ -1,5 +1,7 @@
 .results-container {
     margin-top: 78px;
+    max-width: 1200px;
+    display: inline-block;
 }
 .results-title {
     font-size: 42px;

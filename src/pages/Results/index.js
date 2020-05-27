@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { _ResultsPage } from './Results';
-import { addResults } from '../../store/results/actions';
+import { addResults, replaceResults } from '../../store/results/actions';
 import { replaceSideResults } from '../../store/sideResults/actions';
 
 const mapStateToProps = state => ({
@@ -12,6 +12,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+    replaceResults: bindActionCreators(replaceResults, dispatch),
     addResults: bindActionCreators(addResults, dispatch),
     replaceSideResults: bindActionCreators(replaceSideResults, dispatch)
 });

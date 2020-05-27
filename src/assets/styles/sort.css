@@ -1,0 +1,14 @@
+.sort-container {
+    display: flex;
+    flex-direction: row-reverse;
+}
+.sort-item {
+    padding: 2px 6px;
+    cursor: pointer;
+}
+.sort-item_active {
+    color: #0070c9;
+}
+.sort-item:hover {
+    color: #0070c9;
+}
