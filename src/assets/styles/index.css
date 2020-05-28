@@ -41,8 +41,6 @@ pre {
 
 .loader-container {
   position: absolute;
-  width: 0;
-  height: 0;
   text-align: center;
   margin-left: -88.5px;
   left: 50%;
