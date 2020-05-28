@@ -45,9 +45,8 @@ export class _SearchPage extends React.Component {
                 this.setState({ noItems: true });
 
             this.setState({ loading: false });
-            
-            this.props.replaceResults(items, page, sort);
             this.props.setTitle(title);
+            this.props.replaceResults(items, page, sort);
         } catch(err) {
             this.setState({
                 noItems: true,
