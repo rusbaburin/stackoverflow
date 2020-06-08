@@ -2,8 +2,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { _ResultsPage } from './Results';
-import { addResults, replaceResults } from '../../store/results/actions';
+import { replaceResults } from '../../store/results/actions';
 import { replaceSideResults } from '../../store/sideResults/actions';
+import { replaceResultsAsync, addResultsAsync } from '../../sagas/results/saga';
 
 const mapStateToProps = state => ({
     results: state.results,
@@ -13,7 +14,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     replaceResults: bindActionCreators(replaceResults, dispatch),
-    addResults: bindActionCreators(addResults, dispatch),
+    replaceResultsAsync: bindActionCreators(replaceResultsAsync, dispatch),
+    addResultsAsync: bindActionCreators(addResultsAsync, dispatch),
     replaceSideResults: bindActionCreators(replaceSideResults, dispatch)
 });
 

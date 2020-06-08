@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { PAGE, SORT, SIDEBAR_TYPE } from '../../common/constants';
-import { getResults, getUserPosts, getTagPosts } from '../../services/client';
+import { getUserPosts, getTagPosts } from '../../services/client';
 
 import { Question } from '../../components/Question';
 import { Loader } from '../../components/Loader';
@@ -116,61 +116,29 @@ export class _ResultsPage extends React.Component {
         this.setState({ sideLoading: false });
     }
 
-    async sortResults(sort = SORT.ACTIVITY) {
-        this.setState({
-            loading: true,
-            serviceError: false
-        });
-
-        try {
-            const page = 1;
-            const title = this.props.title;
-            const response = await getResults(title, page, sort);
-            const items = response.items;
-            
-            this.props.replaceResults(items, page, sort);
-        } catch(err) {
-            this.setState({ serviceError: true });
-            console.error(err);
-        }
-
-        this.setState({ loading: false });
-    }
-
-    async getNextPosts() {
-        const results = this.props.results;
+    sortResults(sort = SORT.ACTIVITY) {
+        const page = 1;
         const title = this.props.title;
 
-        this.setState({
-            loading: true,
-            serviceError: false
-        });
+        this.props.replaceResults();
+        this.props.replaceResultsAsync(title, page, sort);
+    }
 
-        try {
-            const page = results.page + 1;
-            const sort = results.sort;
-            const response = await getResults(title, page, sort);
-            const items = response.items;
-
-            if (!response.has_more)
-                this.setState({ lastItem: true });
-            
-            this.props.addResults(items, page, sort);
-        } catch(err) {
-            this.setState({
-                lastItem: true,
-                serviceError: true
-            });
-            console.error(err);
-        }
-
-        this.setState({ loading: false });
+    getNextPosts() {
+        const results = this.props.results;
+        const title = this.props.title;
+        const page = results.page + 1;
+        const sort = results.sort;
+        
+        this.props.addResultsAsync(title, page, sort);
     }
 
     handleScroll() {
+        const results = this.props.results;
+
         if (
-            !this.state.loading &&
-            !this.state.lastItem &&
+            !results.loading &&
+            results.has_more &&
             (window.innerHeight + window.scrollY) >= document.body.offsetHeight - 500
         ) {
             this.getNextPosts();
@@ -182,8 +150,8 @@ export class _ResultsPage extends React.Component {
         const sideResults = this.props.sideResults;
         const title = this.props.title;
 
-        if (results.items.length == 0)
-            return null;
+        // if (results.items.length == 0)
+        //     return null;
 
         return (
             <div className='results-container'>
@@ -207,8 +175,8 @@ export class _ResultsPage extends React.Component {
                     sort={sideResults.sort}
                     sortSideResults={this.sortSideResults}
                     items={sideResults.items} />
-                { this.state.loading && <Loader /> }
-                { this.state.serviceError && <ServiceMessage title='Unexpected error' type='error' /> }
+                { results.loading && <Loader /> }
+                { results.error && <ServiceMessage title='Unexpected error' type='error' /> }
             </div>
         );
     }

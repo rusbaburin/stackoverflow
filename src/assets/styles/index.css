@@ -33,7 +33,8 @@ pre {
 }
 
 .red-serviceWarning {
-  background-color: #CC0033 !important
+  background-color: #CC0033 !important;
+  color: #fff
 }
 .yellow-serviceWarning {
   background-color: #e2c018 !important
