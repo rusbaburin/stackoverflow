@@ -1,7 +1,6 @@
 import React from 'react';
 
 import SearchFrom from '../../components/SearchForm';
-import { getResults } from '../../services/client';
 import { PAGE, SORT } from '../../common/constants';
 import { ServiceMessage } from '../../components/ServiceMessage';
 
@@ -10,12 +9,6 @@ export class _SearchPage extends React.Component {
         super(props);
 
         this.getPosts = this.getPosts.bind(this);
-
-        this.state = {
-            loading: false,
-            noItems: false,
-            serviceError: false
-        }
     }
 
     componentDidUpdate() {
@@ -23,51 +16,28 @@ export class _SearchPage extends React.Component {
             this.props.history.push(PAGE.RESULTS);
     }
 
-    async getPosts(title) {
+    getPosts(title) {
+        const page = 1;
+        const sort = SORT.ACTIVITY;
         title = title.trim();
 
         if (!title || title == '')
             return;
 
-        this.setState({
-            loading: true,
-            noItems: false,
-            serviceError: false
-        });
-
-        try {
-            const page = 1;
-            const sort = SORT.ACTIVITY;
-            const response = await getResults(title, page, sort);
-            const items = response.items;
-
-            if (items.length == 0)
-                this.setState({ noItems: true });
-
-            this.setState({ loading: false });
-            this.props.setTitle(title);
-            this.props.replaceResults(items, page, sort);
-        } catch(err) {
-            this.setState({
-                noItems: true,
-                loading: false,
-                serviceError: true
-            });
-            console.error(err);
-        }
-
+        this.props.replaceResults(); //clearup
+        this.props.replaceResultsAsync(title, page, sort);
     }
 
     render() {
-        const { noItems, loading, serviceError } = this.state;
+        const { loading, has_more, error } = this.props.results;
 
         return (
             <>
-                { serviceError && <ServiceMessage title='Unexpected error' type='error' /> }
+                { error && <ServiceMessage title='Unexpected error' type='error' /> }
                 <SearchFrom
                     getPosts={this.getPosts}
-                    noItems={this.state.noItems}
-                    loading={this.state.loading} />
+                    noItems={has_more != null && !has_more}
+                    loading={loading} />
             </>
         );
     }
