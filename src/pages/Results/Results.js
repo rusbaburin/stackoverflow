@@ -53,67 +53,55 @@ export class _ResultsPage extends React.Component {
     }
 
     async handleUserPosts(userId) {
-        this.setState({
-            sideLoading: true,
-            showSideBar: true,
-            serviceError: false,
-            sideBarType: SIDEBAR_TYPE.USER
-        });
+        // this.setState({
+        //     sideLoading: true,
+        //     showSideBar: true,
+        //     serviceError: false,
+        //     sideBarType: SIDEBAR_TYPE.USER
+        // });
 
-        try {
-            const response = await getUserPosts(userId, SORT.ACTIVITY);
-            const questions = response.items;
-            this.props.replaceSideResults(questions, SORT.ACTIVITY);
-        } catch (err) {
-            this.setState({ serviceError: true });
-            console.error(err);
-        }
+        // try {
+        //     const response = await getUserPosts(userId, SORT.ACTIVITY);
+        //     const questions = response.items;
+        //     this.props.replaceSideResults(questions, SORT.ACTIVITY);
+        // } catch (err) {
+        //     this.setState({ serviceError: true });
+        //     console.error(err);
+        // }
 
-        this.setState({ sideLoading: false });
+        // this.setState({ sideLoading: false });
     }
 
-    async handleTagPosts(tag) {
+    handleTagPosts(tag) {
         this.setState({
-            sideLoading: true,
             showSideBar: true,
-            serviceError: false,
             sideBarType: SIDEBAR_TYPE.TAG
         });
-
-        try {
-            const response = await getTagPosts(tag);
-            const questions = response.items;
-            this.props.replaceSideResults(questions, SORT.ACTIVITY);
-        } catch (err) {
-            this.setState({ serviceError: true });
-            console.error(err);
-        }
-
-        this.setState({ sideLoading: false });
+        this.props.getTagResultsAsync(tag);
     }
 
     async sortSideResults(sort = SORT.ACTIVITY) {
-        if (this.state.sideBarType == SIDEBAR_TYPE.TAG) {
-            this.props.replaceSideResults(this.props.sideResults.items, sort);
-            return;
-        }
+        // if (this.state.sideBarType == SIDEBAR_TYPE.TAG) {
+        //     this.props.replaceSideResults(this.props.sideResults.items, sort);
+        //     return;
+        // }
 
-        this.setState({
-            sideLoading: true,
-            serviceError: false
-        });
+        // this.setState({
+        //     sideLoading: true,
+        //     serviceError: false
+        // });
 
-        try {
-            const userId = this.props.sideResults.items[0].owner.user_id;
-            const response = await getUserPosts(userId, sort);
-            const questions = response.items;
-            this.props.replaceSideResults(questions, sort);
-        } catch (err) {
-            this.setState({ serviceError: true });
-            console.error(err);
-        }
+        // try {
+        //     const userId = this.props.sideResults.items[0].owner.user_id;
+        //     const response = await getUserPosts(userId, sort);
+        //     const questions = response.items;
+        //     this.props.replaceSideResults(questions, sort);
+        // } catch (err) {
+        //     this.setState({ serviceError: true });
+        //     console.error(err);
+        // }
 
-        this.setState({ sideLoading: false });
+        // this.setState({ sideLoading: false });
     }
 
     sortResults(sort = SORT.ACTIVITY) {
@@ -121,12 +109,7 @@ export class _ResultsPage extends React.Component {
     }
 
     getNextPosts() {
-        const results = this.props.results;
-        const title = this.props.title;
-        const page = results.page + 1;
-        const sort = results.sort;
-        
-        this.props.addResultsAsync(title, page, sort);
+        this.props.addResultsAsync();
     }
 
     handleScroll() {
@@ -145,9 +128,7 @@ export class _ResultsPage extends React.Component {
         const results = this.props.results;
         const sideResults = this.props.sideResults;
         const title = this.props.title;
-
-        // if (results.items.length == 0)
-        //     return null;
+        console.log(sideResults);
 
         return (
             <div className='results-container'>
@@ -167,12 +148,12 @@ export class _ResultsPage extends React.Component {
                 <SideBar
                     closeSideBar={this.closeSideBar}
                     display={this.state.showSideBar}
-                    loading={this.state.sideLoading}
+                    loading={sideResults.loading}
                     sort={sideResults.sort}
                     sortSideResults={this.sortSideResults}
                     items={sideResults.items} />
                 { results.loading && <Loader /> }
-                { results.error && <ServiceMessage title='Unexpected error' type='error' /> }
+                { results.error || sideResults.error && <ServiceMessage title='Unexpected error' type='error' /> }
             </div>
         );
     }
