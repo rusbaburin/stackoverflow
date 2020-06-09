@@ -1,6 +1,6 @@
 import { takeEvery, put, select } from 'redux-saga/effects';
 
-import { getTagPosts } from '../../services/client';
+import { getTagPosts, getUserPosts } from '../../services/client';
 import { SAGA_TYPE, SORT, SIDEBAR_TYPE } from '../../common/constants';
 import {
     replaceResults,
@@ -16,6 +16,11 @@ import {
     replaceSideResults
 } from '../../store/sideResults/actions';
 
+export const getUserResultsAsync = (userId) => ({
+    type: SAGA_TYPE.GET_USER_RESULTS_ASYNC,
+    userId
+})
+
 export const getTagResultsAsync = (tag) => ({
     type: SAGA_TYPE.GET_TAG_RESULTS_ASYNC,
     tag
@@ -26,8 +31,11 @@ function* fetchTagResults(action) {
     yield put(setSideResultsLoading(true));
     yield put(setSideResultsError(false));
 
+    const methodName = action.type == SAGA_TYPE.GET_TAG_RESULTS_ASYNC ? getTagPosts : getUserPosts;
+    const methodParam = action.type == SAGA_TYPE.GET_TAG_RESULTS_ASYNC ? action.tag : action.userId;
+
     try {
-        const response = yield getTagPosts(action.tag);
+        const response = yield methodName(methodParam);
         const questions = response.items;
         yield put(replaceSideResults(questions, SORT.ACTIVITY, SIDEBAR_TYPE.TAG));
     } catch (err) {
@@ -40,4 +48,5 @@ function* fetchTagResults(action) {
 
 export function* watchGetSideResults() {
     yield takeEvery(SAGA_TYPE.GET_TAG_RESULTS_ASYNC, fetchTagResults);
+    yield takeEvery(SAGA_TYPE.GET_USER_RESULTS_ASYNC, fetchTagResults);
 }

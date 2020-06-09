@@ -52,30 +52,16 @@ export class _ResultsPage extends React.Component {
         this.setState({ showSideBar: false });
     }
 
-    async handleUserPosts(userId) {
-        // this.setState({
-        //     sideLoading: true,
-        //     showSideBar: true,
-        //     serviceError: false,
-        //     sideBarType: SIDEBAR_TYPE.USER
-        // });
-
-        // try {
-        //     const response = await getUserPosts(userId, SORT.ACTIVITY);
-        //     const questions = response.items;
-        //     this.props.replaceSideResults(questions, SORT.ACTIVITY);
-        // } catch (err) {
-        //     this.setState({ serviceError: true });
-        //     console.error(err);
-        // }
-
-        // this.setState({ sideLoading: false });
+    handleUserPosts(userId) {
+        this.setState({
+            showSideBar: true,
+        });
+        this.props.getUserResultsAsync(userId);
     }
 
     handleTagPosts(tag) {
         this.setState({
             showSideBar: true,
-            sideBarType: SIDEBAR_TYPE.TAG
         });
         this.props.getTagResultsAsync(tag);
     }
@@ -128,7 +114,6 @@ export class _ResultsPage extends React.Component {
         const results = this.props.results;
         const sideResults = this.props.sideResults;
         const title = this.props.title;
-        console.log(sideResults);
 
         return (
             <div className='results-container'>
