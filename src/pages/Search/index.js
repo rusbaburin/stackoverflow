@@ -3,14 +3,14 @@ import { bindActionCreators } from 'redux';
 
 import { _SearchPage } from './Search';
 import { replaceResults } from '../../store/results/actions';
-import { replaceResultsAsync } from '../../sagas/results/saga';
+import { getResultsAsync } from '../../sagas/results/saga';
 
 const mapStateToProps = state => ({
     results: state.results
 });
 
 const mapDispatchToProps = dispatch => ({
-    replaceResultsAsync: bindActionCreators(replaceResultsAsync, dispatch),
+    getResultsAsync: bindActionCreators(getResultsAsync, dispatch),
     replaceResults: bindActionCreators(replaceResults, dispatch),
 });
 

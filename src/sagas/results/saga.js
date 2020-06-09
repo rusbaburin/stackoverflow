@@ -1,4 +1,4 @@
-import { takeEvery, put } from 'redux-saga/effects';
+import { takeEvery, put, select } from 'redux-saga/effects';
 
 import { getResults } from '../../services/client';
 import { SAGA_TYPE } from '../../common/constants';
@@ -11,22 +11,30 @@ import {
 } from '../../store/results/actions';
 import { setTitle } from '../../store/title/actions';
 
-export const addResultsAsync = (title, page, sort) => ({
-    type: SAGA_TYPE.ADD_RESULTS_ASYNC,
-    title,
-    page,
-    sort
+export const addResultsAsync = () => ({
+    type: SAGA_TYPE.ADD_RESULTS_ASYNC
 })
 
-export const replaceResultsAsync = (title, page, sort) => ({
-    type: SAGA_TYPE.REPLACE_RESULTS_ASYNC,
-    title,
-    page,
+export const getResultsAsync = (title) => ({
+    type: SAGA_TYPE.GET_RESULTS_ASYNC,
+    title
+})
+
+export const sortResultsAsync = (sort) => ({
+    type: SAGA_TYPE.SORT_RESULTS_ASYNC,
     sort
 })
 
 function* fetchResults(action) {
-    const { title, page, sort, type } = action;
+    const { type } = action;
+    const state = yield select();
+
+    const page = +(type != SAGA_TYPE.ADD_RESULTS_ASYNC) || state.results.page + 1;
+    const sort = action.sort || state.results.sort;
+    const title = action.title || state.title;
+
+    if (type == SAGA_TYPE.GET_RESULTS_ASYNC || type == SAGA_TYPE.SORT_RESULTS_ASYNC)
+        yield put(replaceResults()); //clearup
 
     yield put(setResultsLoading(true));
     yield put(setResultsHasmore(null));
@@ -34,15 +42,18 @@ function* fetchResults(action) {
 
     try {
         const response = yield getResults(title, page, sort);
-        yield put(setTitle(title));
         yield put(setResultsHasmore(response.has_more));
 
         switch(type) {
-            case SAGA_TYPE.REPLACE_RESULTS_ASYNC :
+            case SAGA_TYPE.GET_RESULTS_ASYNC :
+                yield put(setTitle(title));
                 yield put(replaceResults(response.items, page, sort));
                 break;
             case SAGA_TYPE.ADD_RESULTS_ASYNC :
                 yield put(addResults(response.items, page, sort));
+                break;
+            case SAGA_TYPE.SORT_RESULTS_ASYNC :
+                yield put(replaceResults(response.items, page, sort));
                 break;
             default :
                 yield put(replaceResults()); //clearup
@@ -57,6 +68,7 @@ function* fetchResults(action) {
 }
 
 export function* watchGetResults() {
-    yield takeEvery(SAGA_TYPE.REPLACE_RESULTS_ASYNC, fetchResults);
+    yield takeEvery(SAGA_TYPE.GET_RESULTS_ASYNC, fetchResults);
     yield takeEvery(SAGA_TYPE.ADD_RESULTS_ASYNC, fetchResults);
+    yield takeEvery(SAGA_TYPE.SORT_RESULTS_ASYNC, fetchResults);
 }

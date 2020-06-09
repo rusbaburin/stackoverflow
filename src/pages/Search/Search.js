@@ -1,7 +1,7 @@
 import React from 'react';
 
 import SearchFrom from '../../components/SearchForm';
-import { PAGE, SORT } from '../../common/constants';
+import { PAGE } from '../../common/constants';
 import { ServiceMessage } from '../../components/ServiceMessage';
 
 export class _SearchPage extends React.Component {
@@ -17,15 +17,12 @@ export class _SearchPage extends React.Component {
     }
 
     getPosts(title) {
-        const page = 1;
-        const sort = SORT.ACTIVITY;
         title = title.trim();
 
         if (!title || title == '')
             return;
 
-        this.props.replaceResults(); //clearup
-        this.props.replaceResultsAsync(title, page, sort);
+        this.props.getResultsAsync(title);
     }
 
     render() {

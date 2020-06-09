@@ -7,10 +7,10 @@ import { Question } from '../../components/Question';
 import { Loader } from '../../components/Loader';
 import { SideBar } from '../../components/SideBar';
 import { ServiceMessage } from '../../components/ServiceMessage';
+import { SortComponent } from '../../components/Sort';
 
 import '../../assets/styles/results.css';
 import '../../assets/styles/questionList.css';
-import { SortComponent } from '../../components/Sort';
 
 export class _ResultsPage extends React.Component {
     constructor(props) {
@@ -117,11 +117,7 @@ export class _ResultsPage extends React.Component {
     }
 
     sortResults(sort = SORT.ACTIVITY) {
-        const page = 1;
-        const title = this.props.title;
-
-        this.props.replaceResults();
-        this.props.replaceResultsAsync(title, page, sort);
+        this.props.sortResultsAsync(sort);
     }
 
     getNextPosts() {
