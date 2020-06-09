@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { getAnswers, getQuestionInfo } from '../../services/client';
 import { Loader } from '../../components/Loader';
 import { ServiceMessage } from '../../components/ServiceMessage';
 import { Answer } from '../../components/Answer';
@@ -8,59 +7,38 @@ import { Answer } from '../../components/Answer';
 import '../../assets/styles/explore.css';
 
 export class _ExplorePage extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            questionInfo: null,
-            answers: null,
-            serviceError: false
-        }
-    }
-
-    async getData() {
+    getData() {
         const questionId = this.props.match.params.id;
-
-        try {
-            const questionInfo = await getQuestionInfo(questionId);
-            const answers = await getAnswers(questionId);
-
-            this.setState({
-                questionInfo,
-                answers,
-            });
-        } catch (err) {
-            this.setState({
-                serviceError: true
-            });
-            console.error(err);
-        }
+        this.props.getQuestionAsync(questionId);
     }
 
     componentDidMount() {
-        this.getData();   
+        this.getData();
     }
 
     render() {
-        const { questionInfo, answers, serviceError } = this.state;
+        const { info, answers, error, loading } = this.props.question;
 
-        if ( (!questionInfo || !answers) && !serviceError)
+        if (loading)
             return <Loader />
 
-        if (serviceError)
+        if (error)
             return <ServiceMessage title='Unexpected error' type='error' />
+
+        if (!info)
+            return null;
 
         return (
             <div className='explore-container'>
-                <h2 className='explore-title'>{ questionInfo.title }</h2>
+                <h2 className='explore-title'>{ info.title }</h2>
                 <div className='explore-info-container'>
                     <div className='explore-info'>
-                        <div dangerouslySetInnerHTML={{ __html: questionInfo.body }} />
+                        <div dangerouslySetInnerHTML={{ __html: info.body }} />
                     </div>
                     <div className='answers-container'>
-                        <h3 className='answers-title'>{ answers.items.length } Answers</h3>
+                        <h3 className='answers-title'>{ answers.length } Answers</h3>
                         {
-                            answers.items.map(answer => <Answer key={answer.answer_id} answer={answer} />)
+                            answers.map(answer => <Answer key={answer.answer_id} answer={answer} />)
                         }
                     </div>
                 </div>
