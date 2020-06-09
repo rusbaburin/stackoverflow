@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 
 import { _ResultsPage } from './Results';
 import { getResultsAsync, addResultsAsync, sortResultsAsync } from '../../sagas/results/saga';
-import { getTagResultsAsync, getUserResultsAsync } from '../../sagas/sideResults/saga';
+import { getTagResultsAsync, getUserResultsAsync, sortSideResultsAsync } from '../../sagas/sideResults/saga';
 
 const mapStateToProps = state => ({
     results: state.results,
@@ -16,7 +16,8 @@ const mapDispatchToProps = dispatch => ({
     addResultsAsync: bindActionCreators(addResultsAsync, dispatch),
     sortResultsAsync: bindActionCreators(sortResultsAsync, dispatch),
     getTagResultsAsync: bindActionCreators(getTagResultsAsync, dispatch),
-    getUserResultsAsync: bindActionCreators(getUserResultsAsync, dispatch)
+    getUserResultsAsync: bindActionCreators(getUserResultsAsync, dispatch),
+    sortSideResultsAsync: bindActionCreators(sortSideResultsAsync, dispatch),
 });
 
 export const ResultsPage = connect(mapStateToProps, mapDispatchToProps)(_ResultsPage);

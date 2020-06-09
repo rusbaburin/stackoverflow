@@ -1,7 +1,6 @@
 import React from 'react';
 
-import { PAGE, SORT, SIDEBAR_TYPE } from '../../common/constants';
-import { getUserPosts, getTagPosts } from '../../services/client';
+import { PAGE, SORT } from '../../common/constants';
 
 import { Question } from '../../components/Question';
 import { Loader } from '../../components/Loader';
@@ -17,12 +16,7 @@ export class _ResultsPage extends React.Component {
         super(props);
 
         this.state = {
-            loading: false,
-            sideLoading: false,
             showSideBar: false,
-            sideBarType: undefined,
-            serviceError: false,
-            lastItem: false
         }
 
         this.handleScroll = this.handleScroll.bind(this);
@@ -66,28 +60,8 @@ export class _ResultsPage extends React.Component {
         this.props.getTagResultsAsync(tag);
     }
 
-    async sortSideResults(sort = SORT.ACTIVITY) {
-        // if (this.state.sideBarType == SIDEBAR_TYPE.TAG) {
-        //     this.props.replaceSideResults(this.props.sideResults.items, sort);
-        //     return;
-        // }
-
-        // this.setState({
-        //     sideLoading: true,
-        //     serviceError: false
-        // });
-
-        // try {
-        //     const userId = this.props.sideResults.items[0].owner.user_id;
-        //     const response = await getUserPosts(userId, sort);
-        //     const questions = response.items;
-        //     this.props.replaceSideResults(questions, sort);
-        // } catch (err) {
-        //     this.setState({ serviceError: true });
-        //     console.error(err);
-        // }
-
-        // this.setState({ sideLoading: false });
+    sortSideResults(sort = SORT.ACTIVITY) {
+        this.props.sortSideResultsAsync(sort);
     }
 
     sortResults(sort = SORT.ACTIVITY) {
