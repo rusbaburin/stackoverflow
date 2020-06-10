@@ -1,17 +1,21 @@
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { bindActionCreators, Dispatch } from 'redux';
 
 import { _ResultsPage } from './Results';
+
 import { getResultsAsync, addResultsAsync, sortResultsAsync } from '../../sagas/results/saga';
 import { getTagResultsAsync, getUserResultsAsync, sortSideResultsAsync } from '../../sagas/sideResults/saga';
 
-const mapStateToProps = state => ({
+import { RootState } from '../../types/state';
+import { RootSaga } from '../../types/saga';
+
+const mapStateToProps = (state: RootState) => ({
     results: state.results,
     sideResults: state.sideResults,
     title: state.title
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch: Dispatch<RootSaga>) => ({
     getResultsAsync: bindActionCreators(getResultsAsync, dispatch),
     addResultsAsync: bindActionCreators(addResultsAsync, dispatch),
     sortResultsAsync: bindActionCreators(sortResultsAsync, dispatch),

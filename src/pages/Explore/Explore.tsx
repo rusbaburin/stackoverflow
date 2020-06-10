@@ -1,4 +1,5 @@
 import React from 'react';
+import { RouteComponentProps } from 'react-router-dom';
 
 import { Loader } from '../../components/Loader';
 import { ServiceMessage } from '../../components/ServiceMessage';
@@ -6,10 +7,22 @@ import { Answer } from '../../components/Answer';
 
 import '../../assets/styles/explore.css';
 
-export class _ExplorePage extends React.Component {
+import { IGetQuestionAsync } from '../../types/saga';
+import { IQuestion } from '../../types/state';
+
+interface RouteParams {
+    id: string
+}
+
+interface IExplorePage extends RouteComponentProps<RouteParams> {
+    question: IQuestion;
+    getQuestionAsync: (questionId: number) => IGetQuestionAsync;
+}
+
+export class _ExplorePage extends React.Component<IExplorePage> {
     getData() {
         const questionId = this.props.match.params.id;
-        this.props.getQuestionAsync(questionId);
+        this.props.getQuestionAsync(+questionId);
     }
 
     componentDidMount() {

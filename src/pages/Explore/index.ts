@@ -1,14 +1,16 @@
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { bindActionCreators, Dispatch } from 'redux';
 
 import { _ExplorePage } from './Explore';
 import { getQuestionAsync } from '../../sagas/question/saga';
+import { RootState } from '../../types/state';
+import { RootSaga } from '../../types/saga';
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state: RootState) => ({
     question: state.question,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch: Dispatch<RootSaga>) => ({
     getQuestionAsync: bindActionCreators(getQuestionAsync, dispatch),
 });
 

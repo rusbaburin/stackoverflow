@@ -1,4 +1,5 @@
 import React from 'react';
+import { RouteComponentProps } from 'react-router-dom';
 
 import { PAGE, SORT } from '../../common/constants';
 
@@ -11,8 +12,34 @@ import { SortComponent } from '../../components/Sort';
 import '../../assets/styles/results.css';
 import '../../assets/styles/questionList.css';
 
-export class _ResultsPage extends React.Component {
-    constructor(props) {
+import {
+    IGetUserResultsAsync,
+    IGetTagResultsAsync,
+    ISortSideResultsAsync,
+    ISortResultsAsync,
+    IAddResultsAsync
+} from '../../types/saga';
+import { IResults, ISideResults } from '../../types/state';
+import { SortType } from '../../types/constants';
+
+interface IResultsPageState {
+    showSideBar: boolean
+}
+
+interface IResultsPage extends RouteComponentProps {
+    results: IResults;
+    sideResults: ISideResults;
+    title: string;
+    getUserResultsAsync: (userId: number) => IGetUserResultsAsync;
+    getTagResultsAsync: (tag: string) => IGetTagResultsAsync;
+    sortSideResultsAsync: (sort: SortType) => ISortSideResultsAsync;
+    sortResultsAsync: (sort: SortType) => ISortResultsAsync;
+    addResultsAsync: () => IAddResultsAsync;
+
+}
+
+export class _ResultsPage extends React.Component<IResultsPage,  IResultsPageState> {
+    constructor(props: IResultsPage) {
         super(props);
 
         this.state = {
@@ -46,14 +73,14 @@ export class _ResultsPage extends React.Component {
         this.setState({ showSideBar: false });
     }
 
-    handleUserPosts(userId) {
+    handleUserPosts(userId: number) {
         this.setState({
             showSideBar: true,
         });
         this.props.getUserResultsAsync(userId);
     }
 
-    handleTagPosts(tag) {
+    handleTagPosts(tag: string) {
         this.setState({
             showSideBar: true,
         });
