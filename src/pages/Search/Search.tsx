@@ -1,11 +1,20 @@
 import React from 'react';
+import { RouteComponentProps } from 'react-router-dom';
 
 import SearchFrom from '../../components/SearchForm';
 import { PAGE } from '../../common/constants';
 import { ServiceMessage } from '../../components/ServiceMessage';
 
-export class _SearchPage extends React.Component {
-    constructor(props) {
+import { IResults } from '../../types/state';
+import { IGetResultsAsync } from '../../types/saga';
+
+interface ISearchPage extends RouteComponentProps {
+    results: IResults,
+    getResultsAsync: (title: string) => IGetResultsAsync
+}
+
+export class _SearchPage extends React.Component<ISearchPage> {
+    constructor(props: ISearchPage) {
         super(props);
 
         this.getPosts = this.getPosts.bind(this);
@@ -16,7 +25,7 @@ export class _SearchPage extends React.Component {
             this.props.history.push(PAGE.RESULTS);
     }
 
-    getPosts(title) {
+    getPosts(title: string) {
         title = title.trim();
 
         if (!title || title == '')

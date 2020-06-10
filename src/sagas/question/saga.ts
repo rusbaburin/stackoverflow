@@ -1,4 +1,4 @@
-import { takeEvery, put, select } from 'redux-saga/effects';
+import { takeEvery, put } from 'redux-saga/effects';
 
 import { getAnswers, getQuestionInfo } from '../../services/client';
 import { SAGA_TYPE } from '../../common/constants';

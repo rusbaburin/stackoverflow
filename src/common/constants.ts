@@ -1,8 +1,10 @@
+import { IActionType, ISagaType, IPage, ISort, ISidebarType } from "../types/constants"
+
 export const EXAPI = {
     STACKEXCHANGE: 'https://api.stackexchange.com/2.2'
 }
 
-export const SAGA_TYPE = {
+export const SAGA_TYPE: ISagaType = {
     GET_RESULTS_ASYNC: 'GET_RESULTS_ASYNC',
     ADD_RESULTS_ASYNC: 'ADD_RESULTS_ASYNC',
     SORT_RESULTS_ASYNC: 'SORT_RESULTS_ASYNC',
@@ -12,7 +14,7 @@ export const SAGA_TYPE = {
     GET_QUESTION_ASYNC: 'GET_QUESTION_ASYNC'
 }
 
-export const ACTION_TYPE = {
+export const ACTION_TYPE: IActionType = {
     ADD_RESULTS: 'ADD_RESULTS',
     REPLACE_RESULTS: 'REPLACE_RESULTS',
     SET_RESULTS_LOADING: 'SET_RESULTS_LOADING',
@@ -27,18 +29,18 @@ export const ACTION_TYPE = {
     SET_QUESTION_ERROR: 'SET_QUESTION_ERROR'
 }
 
-export const PAGE = {
+export const PAGE: IPage = {
     SEARCH: '/',
     RESULTS: '/results',
     EXPLORE: '/explore'
 }
 
-export const SORT = {
+export const SORT: ISort = {
     CREATION: 'creation',
     ACTIVITY: 'activity'
 }
 
-export const SIDEBAR_TYPE = {
+export const SIDEBAR_TYPE: ISidebarType = {
     TAG: 'tags',
     USER: 'user'
 }

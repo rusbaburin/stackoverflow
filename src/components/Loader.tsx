@@ -4,7 +4,7 @@ import * as loader from '../assets/images/loader.gif'
 export function Loader() {
     return (
         <div className='loader-container'>
-            <img className='loader' src={loader}  />
+            <img className='loader' src={loader} alt='loader' />
         </div>
     );
 }

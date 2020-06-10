@@ -112,7 +112,7 @@ export class _ResultsPage extends React.Component {
                     sortSideResults={this.sortSideResults}
                     items={sideResults.items} />
                 { results.loading && <Loader /> }
-                { results.error || sideResults.error && <ServiceMessage title='Unexpected error' type='error' /> }
+                { (results.error || sideResults.error) && <ServiceMessage title='Unexpected error' type='error' /> }
             </div>
         );
     }
