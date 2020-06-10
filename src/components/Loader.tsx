@@ -1,10 +1,9 @@
 import React from 'react';
-import * as loader from '../assets/images/loader.gif'
 
 export function Loader() {
     return (
         <div className='loader-container'>
-            <img className='loader' src={loader} alt='loader' />
+            <img className='loader' src={require('../assets/images/loader.gif')} alt='loader' />
         </div>
     );
 }

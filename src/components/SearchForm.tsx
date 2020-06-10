@@ -1,12 +1,20 @@
-import React from 'react';
+import React, { RefObject } from 'react';
+
 import '../assets/styles/search.css';
 import { Loader } from './Loader';
 import { Warning } from './Warning';
 
-function SearchFrom(props) {
-  const inputRef = React.createRef();
+interface ISearchForm {
+  loading: boolean;
+  noItems: boolean;
+  getPosts: (title: string) => void
+}
+
+const SearchFrom: React.FC<ISearchForm> = (props) => {
+  const inputRef: RefObject<HTMLInputElement> = React.createRef();
 
   const getPosts = () => {
+    //@ts-ignore
     props.getPosts(inputRef.current.value);
   }
 

@@ -4,7 +4,19 @@ import { Loader } from './Loader';
 import { SideQuestion } from './SideQuestion';
 import { SortComponent } from './Sort';
 
-export function SideBar({ items, loading, display, closeSideBar, sort, sortSideResults }) {
+import { ISideResult } from '../types/state';
+import { SortType } from '../types/constants';
+
+interface ISideBar {
+    items: ISideResult;
+    loading: boolean;
+    display: boolean;
+    closeSideBar: () => void;
+    sort: SortType;
+    sortSideResults: (sort?: SortType) => void;
+}
+
+export const SideBar: React.FC<ISideBar> = ({ items, loading, display, closeSideBar, sort, sortSideResults }) => {
     const displayClass = display ? 'results-sidebar-container_displayed' : 'results-sidebar-container_faded';
 
     return (
@@ -16,7 +28,7 @@ export function SideBar({ items, loading, display, closeSideBar, sort, sortSideR
                 <SortComponent sort={sort} sortResults={sortSideResults} />
             </div>
             {
-                !loading && items.map(item => <SideQuestion question={item} />)
+                !loading && items.map((item: ISideResult) => <SideQuestion question={item} />)
             }
             { loading && <Loader /> }
             { (items.length == 0 && !loading ) && <p>No questions here</p> }

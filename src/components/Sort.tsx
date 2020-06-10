@@ -2,8 +2,14 @@ import React from 'react';
 
 import '../assets/styles/sort.css';
 import { SORT } from '../common/constants';
+import { SortType } from '../types/constants';
 
-export function SortComponent({ sortResults, sort }) {
+interface ISortComponent {
+    sortResults: (sort: SortType) => void;
+    sort: SortType
+}
+
+export const SortComponent: React.FC<ISortComponent> = ({ sortResults, sort }) => {
     function sortByCreation() {
         sortResults(SORT.CREATION);
     }

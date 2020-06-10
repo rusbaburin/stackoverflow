@@ -1,6 +1,10 @@
 import React from 'react';
 
-export function Warning(props) {
+interface IWarning {
+    title: string
+}
+
+export const Warning: React.FC<IWarning> = (props) => {
     return (
         <div className='warning-container'>
             <p className='warning red-warning'>{ props.title }</p>

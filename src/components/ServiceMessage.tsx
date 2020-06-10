@@ -1,6 +1,11 @@
 import React from 'react';
 
-export function ServiceMessage({ title, type }) {
+interface IServiceMessage {
+    title: string;
+    type: 'error' | 'warning'
+}
+
+export const ServiceMessage: React.FC<IServiceMessage> = ({ title, type }) => {
     let classMessage = null;
 
     switch (type) {

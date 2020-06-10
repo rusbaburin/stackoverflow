@@ -1,6 +1,11 @@
 import React from 'react';
 
-export function Tag({ title, getTagPosts }) {
+interface ITag {
+    title: string;
+    getTagPosts: (tag: string) => void
+}
+
+export const Tag: React.FC<ITag> = ({ title, getTagPosts }) => {
     function handleTagPosts() {
         getTagPosts(title);
     }

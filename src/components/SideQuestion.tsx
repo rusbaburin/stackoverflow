@@ -3,8 +3,13 @@ import { Link } from 'react-router-dom';
 
 import '../assets/styles/sideQuestion.css';
 import { PAGE } from '../common/constants';
+import { ISideResult } from '../types/state';
 
-export function SideQuestion({ question }) {
+interface ISideQuestion {
+    question: ISideResult
+}
+
+export const SideQuestion: React.FC<ISideQuestion> = ({ question }) => {
     return (
         <div className='sideQuestion-container'>
             <div className='sideQuestion-info-container'>

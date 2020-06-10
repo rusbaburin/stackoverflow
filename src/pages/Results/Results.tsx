@@ -87,11 +87,11 @@ export class _ResultsPage extends React.Component<IResultsPage,  IResultsPageSta
         this.props.getTagResultsAsync(tag);
     }
 
-    sortSideResults(sort = SORT.ACTIVITY) {
+    sortSideResults(sort: SortType = SORT.ACTIVITY) {
         this.props.sortSideResultsAsync(sort);
     }
 
-    sortResults(sort = SORT.ACTIVITY) {
+    sortResults(sort: SortType = SORT.ACTIVITY) {
         this.props.sortResultsAsync(sort);
     }
 

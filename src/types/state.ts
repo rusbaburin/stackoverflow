@@ -1,14 +1,26 @@
 import { SortType, SideBarType } from "./constants";
 
+export interface IAnswer {
+    [key: string]: any
+}
+
+export interface IResult {
+    [key: string]: any
+}
+
+export interface ISideResult {
+    [key: string]: any
+}
+
 export interface IQuestion {
     info: any,
-    answers: any[],
+    answers: IAnswer[],
     loading: boolean,
     error: boolean
 }
 
 export interface IResults {
-    items: any[],
+    items: IResult[],
     page: number,
     sort: SortType,
     loading: boolean,
@@ -17,7 +29,7 @@ export interface IResults {
 }
 
 export interface ISideResults {
-    items: any[],
+    items: ISideResult[],
     sort: SortType,
     loading: boolean,
     error: boolean,

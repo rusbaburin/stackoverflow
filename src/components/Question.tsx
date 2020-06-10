@@ -5,7 +5,15 @@ import '../assets/styles/question.css';
 import { Tag } from './Tag';
 import { PAGE } from '../common/constants';
 
-export function Question(props) {
+import { IResult } from '../types/state';
+
+interface IQuestionComponent {
+    question: IResult;
+    getTagPosts: (tag: string) => void;
+    getUserPosts: (userId: number) => void
+}
+
+export const Question: React.FC<IQuestionComponent> = (props) => {
     const question = props.question;
 
     function handleUserPosts() {
@@ -20,7 +28,7 @@ export function Question(props) {
                 </Link>
                 <div className='question-author' onClick={handleUserPosts}>{ question.owner.display_name }</div>
                 <div className='question-tagList'>
-                    { question.tags.map((tag, index) => <Tag key={index} title={tag} getTagPosts={props.getTagPosts} />) }
+                    { question.tags.map((tag: string, index: number) => <Tag key={index} title={tag} getTagPosts={props.getTagPosts} />) }
                 </div>
             </div>
             <Link className='question-answers-container' to={ `${PAGE.EXPLORE }/${ question.question_id }` }>
