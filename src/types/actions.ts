@@ -1,11 +1,12 @@
 import { ACTION_TYPE } from '../common/constants';
-import { SortType, ISidebarType, SideBarType } from './constants';
+import { SortType, SideBarType } from './constants';
+import { IQuestionInfo, IAnswer, IResults, IResult, ISideResult } from './state';
 
 //Question
 export interface ISetQuestion {
     type: typeof ACTION_TYPE.SET_QUESTION,
-    info: any,
-    answers: any[]
+    info: IQuestionInfo | null,
+    answers: IAnswer[]
 }
 
 export interface ISetQuestionLoading {
@@ -20,17 +21,17 @@ export interface ISetQuestionError {
 
 //Results
 export interface IReplaceResults {
-    type: typeof ACTION_TYPE.REPLACE_RESULTS,
-    items: any[]
-    page: number
-    sort: SortType
+    type: typeof ACTION_TYPE.REPLACE_RESULTS;
+    items: IResult[];
+    page: number;
+    sort: SortType;
 }
 
 export interface IAddResults {
-    type: typeof ACTION_TYPE.ADD_RESULTS,
-    items: any[],
-    page: number,
-    sort: SortType
+    type: typeof ACTION_TYPE.ADD_RESULTS;
+    items: IResult[];
+    page: number;
+    sort: SortType;
 }
 
 export interface ISetResultsLoading {
@@ -51,7 +52,7 @@ export interface ISetResultsHasmore {
 //SideResults
 export interface IReplaceSideResults {
     type: typeof ACTION_TYPE.REPLACE_SIDERESULTS,
-    items: any[],
+    items: ISideResult[],
     sort: SortType
     group: SideBarType | null
 }

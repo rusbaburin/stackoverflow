@@ -7,9 +7,9 @@ import {
 } from './request';
 import { SORT } from '../common/constants';
 import { SortType } from '../types/constants';
-import { IResult, IAnswer, ISideResult, IQuestion } from '../types/state';
+import { IAnswer, ISideResult, IQuestion } from '../types/state';
 
-export function getResults(title: string, page: number = 1, sort: SortType = SORT.ACTIVITY): Promise<IResult[]> {
+export function getResults(title: string, page: number = 1, sort: SortType = SORT.ACTIVITY) {
     return getResultsService(title, page, sort);
 }
 

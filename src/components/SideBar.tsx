@@ -8,7 +8,7 @@ import { ISideResult } from '../types/state';
 import { SortType } from '../types/constants';
 
 interface ISideBar {
-    items: ISideResult;
+    items: ISideResult[];
     loading: boolean;
     display: boolean;
     closeSideBar: () => void;
