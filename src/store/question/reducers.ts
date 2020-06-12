@@ -1,4 +1,5 @@
 import { ACTION_TYPE } from '../../common/constants';
+import { ISetQuestion, ISetQuestionLoading, ISetQuestionError } from '../../types/actions';
 
 const initialState = {
     info: null,
@@ -7,7 +8,7 @@ const initialState = {
     error: false
 }
 
-export const question = (state = initialState, action) => {
+export const question = (state = initialState, action: ISetQuestion | ISetQuestionLoading | ISetQuestionError) => {
     switch(action.type) {
         case ACTION_TYPE.SET_QUESTION :
             return {

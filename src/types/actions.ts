@@ -1,5 +1,5 @@
 import { ACTION_TYPE } from '../common/constants';
-import { SortType, ISidebarType } from './constants';
+import { SortType, ISidebarType, SideBarType } from './constants';
 
 //Question
 export interface ISetQuestion {
@@ -38,9 +38,14 @@ export interface ISetResultsLoading {
     loading: boolean
 }
 
+export interface ISetResultsError {
+    type: typeof ACTION_TYPE.SET_RESULTS_ERROR,
+    error: boolean
+}
+
 export interface ISetResultsHasmore {
     type: typeof ACTION_TYPE.SET_RESULTS_HASMORE,
-    has_more: boolean
+    has_more: boolean | null
 }
 
 //SideResults
@@ -48,7 +53,7 @@ export interface IReplaceSideResults {
     type: typeof ACTION_TYPE.REPLACE_SIDERESULTS,
     items: any[],
     sort: SortType
-    group: ISidebarType
+    group: SideBarType | null
 }
 
 export interface ISetSideResultsLoading {

@@ -10,28 +10,30 @@ import {
     setResultsError
 } from '../../store/results/actions';
 import { setTitle } from '../../store/title/actions';
+import { SortType } from '../../types/constants';
+import { ISortResultsAsync, IGetResultsAsync, IAddResultsAsync } from '../../types/saga';
 
-export const addResultsAsync = () => ({
+export const addResultsAsync = (): IAddResultsAsync => ({
     type: SAGA_TYPE.ADD_RESULTS_ASYNC
 })
 
-export const getResultsAsync = (title) => ({
+export const getResultsAsync = (title: string): IGetResultsAsync => ({
     type: SAGA_TYPE.GET_RESULTS_ASYNC,
     title
 })
 
-export const sortResultsAsync = (sort) => ({
+export const sortResultsAsync = (sort: SortType): ISortResultsAsync => ({
     type: SAGA_TYPE.SORT_RESULTS_ASYNC,
     sort
 })
 
-function* fetchResults(action) {
+function* fetchResults(action: ISortResultsAsync | IGetResultsAsync | IAddResultsAsync) {
     const { type } = action;
     const state = yield select();
 
     const page = +(type != SAGA_TYPE.ADD_RESULTS_ASYNC) || state.results.page + 1;
-    const sort = action.sort || state.results.sort;
-    const title = action.title || state.title;
+    const sort = (action as ISortResultsAsync ).sort || state.results.sort;
+    const title = (action as IGetResultsAsync).title || state.title;
 
     if (type == SAGA_TYPE.GET_RESULTS_ASYNC || type == SAGA_TYPE.SORT_RESULTS_ASYNC)
         yield put(replaceResults()); //clearup

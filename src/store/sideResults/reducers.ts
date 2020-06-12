@@ -1,4 +1,5 @@
 import { ACTION_TYPE, SORT } from '../../common/constants';
+import { IReplaceSideResults, ISetSideResultsLoading, ISetSideResultsError } from '../../types/actions';
 
 const initialState = {
     items: [],
@@ -8,7 +9,7 @@ const initialState = {
     group: null
 }
 
-export const sideResults = (state = initialState, action) => {
+export const sideResults = (state = initialState, action: IReplaceSideResults | ISetSideResultsLoading | ISetSideResultsError) => {
     switch(action.type) {
         case ACTION_TYPE.REPLACE_SIDERESULTS :
             return {

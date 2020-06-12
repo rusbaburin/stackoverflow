@@ -7,23 +7,25 @@ import {
     setSideResultsError,
     replaceSideResults
 } from '../../store/sideResults/actions';
+import { SortType } from '../../types/constants';
+import { ISortSideResultsAsync, IGetTagResultsAsync, IGetUserResultsAsync } from '../../types/saga';
 
-export const getUserResultsAsync = (userId) => ({
+export const getUserResultsAsync = (userId: number): IGetUserResultsAsync => ({
     type: SAGA_TYPE.GET_USER_RESULTS_ASYNC,
     userId
 })
 
-export const getTagResultsAsync = (tag) => ({
+export const getTagResultsAsync = (tag: string): IGetTagResultsAsync => ({
     type: SAGA_TYPE.GET_TAG_RESULTS_ASYNC,
     tag
 })
 
-export const sortSideResultsAsync = (sort) => ({
+export const sortSideResultsAsync = (sort: SortType): ISortSideResultsAsync => ({
     type: SAGA_TYPE.SORT_SIDERESULTS_ASYNC,
     sort
 })
 
-function* fetchSideResultsToSort(action) {
+function* fetchSideResultsToSort(action: ISortSideResultsAsync) {
     const { sideResults } = yield select();
     const sort = action.sort || SORT.ACTIVITY;
 
@@ -55,18 +57,16 @@ function* fetchSideResultsToSort(action) {
     yield put(setSideResultsLoading(false));
 }
 
-function* fetchSideResults(action) {
+function* fetchSideResults(action: IGetTagResultsAsync | IGetUserResultsAsync) {
     yield put(replaceSideResults()); //clearup
     yield put(setSideResultsLoading(true));
     yield put(setSideResultsError(false));
 
     const sort = SORT.ACTIVITY;
     const group = action.type == SAGA_TYPE.GET_TAG_RESULTS_ASYNC ? SIDEBAR_TYPE.TAG : SIDEBAR_TYPE.USER;
-    const methodName = action.type == SAGA_TYPE.GET_TAG_RESULTS_ASYNC ? getTagPosts : getUserPosts;
-    const methodParams = action.type == SAGA_TYPE.GET_TAG_RESULTS_ASYNC ? [action.tag] : [action.userId];
 
     try {
-        const response = yield methodName(...methodParams);
+        const response = yield action.type == SAGA_TYPE.GET_TAG_RESULTS_ASYNC ? getTagPosts(action.tag) : getUserPosts(action.userId);
         const questions = response.items;
         yield put(replaceSideResults(questions, sort, group));
     } catch (err) {

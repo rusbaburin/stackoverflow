@@ -1,4 +1,11 @@
 import { ACTION_TYPE, SORT } from '../../common/constants';
+import {
+    IReplaceResults,
+    IAddResults,
+    ISetResultsError,
+    ISetResultsLoading,
+    ISetResultsHasmore
+} from '../../types/actions';
 
 const initialState = {
     items: [],
@@ -9,7 +16,7 @@ const initialState = {
     error: false
 }
 
-export const results = (state = initialState, action) => {
+export const results = (state = initialState, action: IReplaceResults | IAddResults | ISetResultsLoading | ISetResultsError | ISetResultsHasmore) => {
     switch(action.type) {
         case ACTION_TYPE.REPLACE_RESULTS :
             return {

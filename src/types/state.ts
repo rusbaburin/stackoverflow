@@ -24,7 +24,7 @@ export interface IResults {
     page: number,
     sort: SortType,
     loading: boolean,
-    has_more: boolean,
+    has_more: boolean | null,
     error: boolean
 }
 
@@ -33,7 +33,7 @@ export interface ISideResults {
     sort: SortType,
     loading: boolean,
     error: boolean,
-    group: SideBarType
+    group: SideBarType | null
 }
 
 export interface RootState {
