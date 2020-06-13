@@ -8,7 +8,7 @@ import { Answer } from '../../components/Answer';
 import '../../assets/styles/explore.css';
 
 import { IGetQuestionAsync } from '../../types/saga';
-import { IQuestion } from '../../types/state';
+import { IQuestion } from '../../types/response';
 
 interface RouteParams {
     id: string
@@ -41,12 +41,15 @@ export class _ExplorePage extends React.Component<IExplorePage> {
         if (!info)
             return null;
 
+        if (!info.body)
+            return <ServiceMessage title='Body property does not exist' type='error' />
+
         return (
             <div className='explore-container'>
                 <h2 className='explore-title'>{ info.title }</h2>
                 <div className='explore-info-container'>
                     <div className='explore-info'>
-                        <div dangerouslySetInnerHTML={{ __html: info.body }} />
+                        <div dangerouslySetInnerHTML={{ __html: info.body as string }} />
                     </div>
                     <div className='answers-container'>
                         <h3 className='answers-title'>{ answers.length } Answers</h3>

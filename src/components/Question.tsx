@@ -5,10 +5,10 @@ import '../assets/styles/question.css';
 import { Tag } from './Tag';
 import { PAGE } from '../common/constants';
 
-import { IResult } from '../types/state';
+import { IQuestionInfo } from '../types/response';
 
 interface IQuestionComponent {
-    question: IResult;
+    question: IQuestionInfo;
     getTagPosts: (tag: string) => void;
     getUserPosts: (userId: number) => void
 }

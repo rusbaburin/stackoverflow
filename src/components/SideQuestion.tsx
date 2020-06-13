@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom';
 
 import '../assets/styles/sideQuestion.css';
 import { PAGE } from '../common/constants';
-import { ISideResult } from '../types/state';
+import { IQuestionInfo } from '../types/response';
 
 interface ISideQuestion {
-    question: ISideResult
+    question: IQuestionInfo
 }
 
 export const SideQuestion: React.FC<ISideQuestion> = ({ question }) => {

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { IAnswer } from '../types/state';
+import { IAnswer } from '../types/response';
 
 interface IAnswerComponent {
     answer: IAnswer

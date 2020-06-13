@@ -7,7 +7,7 @@ import {
 } from './request';
 import { SORT } from '../common/constants';
 import { SortType } from '../types/constants';
-import { IAnswer, ISideResult, IQuestion } from '../types/state';
+import { IAnswer, IQuestionInfo, IQuestion } from '../types/response';
 
 export function getResults(title: string, page: number = 1, sort: SortType = SORT.ACTIVITY) {
     return getResultsService(title, page, sort);
@@ -17,11 +17,11 @@ export function getAnswers(questionId: number): Promise<IAnswer[]> {
     return getAnswersService(questionId);
 }
 
-export function getUserPosts(userId: number, sort: SortType = SORT.ACTIVITY): Promise<ISideResult[]> {
+export function getUserPosts(userId: number, sort: SortType = SORT.ACTIVITY): Promise<IQuestionInfo[]> {
     return getUserPostsService(userId, sort);
 }
 
-export function getTagPosts(tag: string): Promise<ISideResult[]> {
+export function getTagPosts(tag: string): Promise<IQuestionInfo[]> {
     return getTagPostsService(tag);
 }
 

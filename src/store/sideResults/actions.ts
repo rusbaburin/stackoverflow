@@ -1,9 +1,9 @@
 import { ACTION_TYPE, SORT } from '../../common/constants';
-import { ISideResult } from '../../types/state';
+import { IQuestionInfo } from '../../types/response';
 import { SortType, SideBarType } from '../../types/constants';
 import { IReplaceSideResults, ISetSideResultsLoading, ISetSideResultsError } from '../../types/actions';
 
-export const replaceSideResults = (items: ISideResult[] = [], sort: SortType = SORT.ACTIVITY, group: SideBarType | null = null): IReplaceSideResults => ({
+export const replaceSideResults = (items: IQuestionInfo[] = [], sort: SortType = SORT.ACTIVITY, group: SideBarType | null = null): IReplaceSideResults => ({
     type: ACTION_TYPE.REPLACE_SIDERESULTS,
     items,
     sort,

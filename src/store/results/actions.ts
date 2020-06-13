@@ -1,5 +1,5 @@
 import { ACTION_TYPE, SORT } from '../../common/constants';
-import { IResult } from '../../types/state';
+import { IQuestionInfo } from '../../types/response';
 import { SortType } from '../../types/constants';
 import {
     IReplaceResults,
@@ -9,14 +9,14 @@ import {
     ISetResultsError
 } from '../../types/actions';
 
-export const replaceResults = (items: IResult[] = [], page: number = 0, sort: SortType = SORT.ACTIVITY): IReplaceResults => ({
+export const replaceResults = (items: IQuestionInfo[] = [], page: number = 0, sort: SortType = SORT.ACTIVITY): IReplaceResults => ({
     type: ACTION_TYPE.REPLACE_RESULTS,
     items,
     page,
     sort
 });
 
-export const addResults = (items: IResult[] = [], page: number = 0, sort: SortType = SORT.ACTIVITY): IAddResults => ({
+export const addResults = (items: IQuestionInfo[] = [], page: number = 0, sort: SortType = SORT.ACTIVITY): IAddResults => ({
     type: ACTION_TYPE.ADD_RESULTS,
     items,
     page,

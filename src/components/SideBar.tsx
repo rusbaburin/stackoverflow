@@ -4,11 +4,11 @@ import { Loader } from './Loader';
 import { SideQuestion } from './SideQuestion';
 import { SortComponent } from './Sort';
 
-import { ISideResult } from '../types/state';
+import { IQuestionInfo } from '../types/response';
 import { SortType } from '../types/constants';
 
 interface ISideBar {
-    items: ISideResult[];
+    items: IQuestionInfo[];
     loading: boolean;
     display: boolean;
     closeSideBar: () => void;
@@ -28,7 +28,7 @@ export const SideBar: React.FC<ISideBar> = ({ items, loading, display, closeSide
                 <SortComponent sort={sort} sortResults={sortSideResults} />
             </div>
             {
-                !loading && items.map((item: ISideResult) => <SideQuestion question={item} />)
+                !loading && items.map((item: IQuestionInfo) => <SideQuestion question={item} />)
             }
             { loading && <Loader /> }
             { (items.length == 0 && !loading ) && <p>No questions here</p> }
