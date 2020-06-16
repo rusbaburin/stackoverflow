@@ -20,11 +20,15 @@
     cursor: pointer;
     text-decoration: none;
 }
+
 .question-author {
     margin-top: 3px;
     padding-right: 2px;
     color: #000;
     cursor: pointer;
+}
+.question-author:hover {
+    color: #2e84c3;
 }
 
 .question-tagList {
@@ -42,12 +46,15 @@
     border-radius: 26px;
     cursor: pointer;
 }
+.question-tag:hover {
+    background-color: #d6d6ff;
+}
 
 .question-answers-container {
     color: #000;
     display: flex;
     flex-direction: column;
-    border: 1px solid #aeceff;
+    border: 1px solid #9cadff;
     border-radius: 3px;
     padding: 25px;
     height: 52px;
