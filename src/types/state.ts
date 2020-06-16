@@ -1,5 +1,6 @@
-import { SortType, SideBarType } from "./constants";
-import { IQuestionInfo, IQuestion } from './response'
+/* eslint-disable camelcase */
+import { SortType, SideBarType } from './constants';
+import { IQuestionInfo, IQuestion } from './response';
 
 export interface IResults {
     items: IQuestionInfo[],

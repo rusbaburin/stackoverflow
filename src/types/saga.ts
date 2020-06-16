@@ -1,13 +1,13 @@
-import { SAGA_TYPE } from "../common/constants";
-import { SortType } from "./constants";
+import { SAGA_TYPE } from '../common/constants';
+import { SortType } from './constants';
 
-//Question
+// Question
 export interface IGetQuestionAsync {
     type: typeof SAGA_TYPE.GET_QUESTION_ASYNC,
     questionId: number
 }
 
-//Results
+// Results
 export interface IAddResultsAsync {
     type: typeof SAGA_TYPE.ADD_RESULTS_ASYNC
 }
@@ -22,7 +22,7 @@ export interface ISortResultsAsync {
     sort: SortType
 }
 
-//SideResults
+// SideResults
 export interface IGetUserResultsAsync {
     type: typeof SAGA_TYPE.GET_USER_RESULTS_ASYNC,
     userId: number

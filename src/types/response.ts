@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 export interface IQuestionInfo {
     answer_count: number;
     body ?: string;

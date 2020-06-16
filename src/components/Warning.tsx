@@ -4,10 +4,10 @@ interface IWarning {
     title: string
 }
 
-export const Warning: React.FC<IWarning> = (props) => {
-    return (
-        <div className='warning-container'>
-            <p className='warning red-warning'>{ props.title }</p>
-        </div>
-    );
-}
+const Warning: React.FC<IWarning> = ({ title }: IWarning) => (
+  <div className="warning-container">
+    <p className="warning red-warning">{ title }</p>
+  </div>
+);
+
+export default Warning;

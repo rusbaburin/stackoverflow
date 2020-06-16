@@ -1,9 +1,9 @@
 import React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 
-import { Loader } from '../../components/Loader';
-import { ServiceMessage } from '../../components/ServiceMessage';
-import { Answer } from '../../components/Answer';
+import Loader from '../../components/Loader';
+import ServiceMessage from '../../components/ServiceMessage';
+import Answer from '../../components/Answer';
 
 import '../../assets/styles/explore.css';
 
@@ -19,46 +19,54 @@ interface IExplorePage extends RouteComponentProps<RouteParams> {
     getQuestionAsync: (questionId: number) => IGetQuestionAsync;
 }
 
-export class _ExplorePage extends React.Component<IExplorePage> {
-    getData() {
-        const questionId = this.props.match.params.id;
-        this.props.getQuestionAsync(+questionId);
-    }
+class _ExplorePage extends React.Component<IExplorePage> {
+  componentDidMount() {
+    this.getData();
+  }
 
-    componentDidMount() {
-        this.getData();
-    }
+  getData() {
+    const { getQuestionAsync, match } = this.props;
 
-    render() {
-        const { info, answers, error, loading } = this.props.question;
+    const questionId = match.params.id;
+    getQuestionAsync(+questionId);
+  }
 
-        if (loading)
-            return <Loader />
+  render() {
+    const {
+      question: {
+        info, answers, error, loading,
+      },
+    } = this.props;
 
-        if (error)
-            return <ServiceMessage title='Unexpected error' type='error' />
+    if (loading) { return <Loader />; }
 
-        if (!info)
-            return null;
+    if (error) { return <ServiceMessage title="Unexpected error" type="error" />; }
 
-        if (!info.body)
-            return <ServiceMessage title='Body property does not exist' type='error' />
+    if (!info) { return null; }
 
-        return (
-            <div className='explore-container'>
-                <h2 className='explore-title'>{ info.title }</h2>
-                <div className='explore-info-container'>
-                    <div className='explore-info'>
-                        <div dangerouslySetInnerHTML={{ __html: info.body as string }} />
-                    </div>
-                    <div className='answers-container'>
-                        <h3 className='answers-title'>{ answers.length } Answers</h3>
-                        {
-                            answers.map(answer => <Answer key={answer.answer_id} answer={answer} />)
-                        }
-                    </div>
-                </div>
-            </div>
-        );
-    }
+    if (!info.body) { return <ServiceMessage title="Body property does not exist" type="error" />; }
+
+    return (
+      <div className="explore-container">
+        <h2 className="explore-title">{ info.title }</h2>
+        <div className="explore-info-container">
+          <div className="explore-info">
+            <div dangerouslySetInnerHTML={{ __html: info.body as string }} />
+          </div>
+          <div className="answers-container">
+            <h3 className="answers-title">
+              { answers.length }
+              {' '}
+              Answers
+            </h3>
+            {
+                answers.map((answer) => <Answer key={answer.answer_id} answer={answer} />)
+            }
+          </div>
+        </div>
+      </div>
+    );
+  }
 }
+
+export default _ExplorePage;

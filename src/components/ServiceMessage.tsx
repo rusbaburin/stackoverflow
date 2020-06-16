@@ -5,17 +5,21 @@ interface IServiceMessage {
     type: 'error' | 'warning'
 }
 
-export const ServiceMessage: React.FC<IServiceMessage> = ({ title, type }) => {
-    let classMessage = null;
+const ServiceMessage: React.FC<IServiceMessage> = ({ title, type }: IServiceMessage) => {
+  let classMessage = null;
 
-    switch (type) {
-        case 'error' :
-            classMessage = 'red-serviceWarning';
-            break;
-        case 'warning' :
-            classMessage = 'yellow-serviceWarning';
-            break;
-    }
+  switch (type) {
+    case 'error':
+      classMessage = 'red-serviceWarning';
+      break;
+    case 'warning':
+      classMessage = 'yellow-serviceWarning';
+      break;
+    default:
+      classMessage = '';
+  }
 
-    return <div className={`serviceMessage ${ classMessage }`}>{ title }</div>;
-}
+  return <div className={`serviceMessage ${classMessage}`}>{ title }</div>;
+};
+
+export default ServiceMessage;

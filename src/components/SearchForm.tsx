@@ -1,8 +1,8 @@
 import React, { RefObject } from 'react';
 
 import '../assets/styles/search.css';
-import { Loader } from './Loader';
-import { Warning } from './Warning';
+import Loader from './Loader';
+import Warning from './Warning';
 
 interface ISearchForm {
   loading: boolean;
@@ -10,35 +10,36 @@ interface ISearchForm {
   getPosts: (title: string) => void
 }
 
-const SearchFrom: React.FC<ISearchForm> = (props) => {
+const SearchFrom: React.FC<ISearchForm> = (props: ISearchForm) => {
   const inputRef: RefObject<HTMLInputElement> = React.createRef();
+  const { loading, noItems } = props;
 
   const getPosts = () => {
-    //@ts-ignore
+    // @ts-ignore
     props.getPosts(inputRef.current.value);
-  }
+  };
 
   return (
     <div className="search-container">
       <div>
-        <h1 className='search-title'>Search on stackoverflow</h1>
+        <h1 className="search-title">Search on stackoverflow</h1>
       </div>
-      <div className='search-form-container'>
+      <div className="search-form-container">
         <div className="search-form">
-          <div className='search-item-container'>
-            <input className='search-input' type='text' ref={inputRef} />
+          <div className="search-item-container">
+            <input className="search-input" type="text" ref={inputRef} />
           </div>
-          <div className='search-item-container'>
-            <button className='search-button' onClick={getPosts}>Search</button>
+          <div className="search-item-container">
+            <button type="submit" className="search-button" onClick={getPosts}>Search</button>
           </div>
         </div>
         <div>
-          { props.loading && <Loader /> }
-          { props.noItems && <Warning title='There are no results for this question' /> }
+          { loading && <Loader /> }
+          { noItems && <Warning title="There are no results for this question" /> }
         </div>
       </div>
     </div>
   );
-}
+};
 
 export default SearchFrom;

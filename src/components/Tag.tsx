@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import React from 'react';
 
 interface ITag {
@@ -5,10 +7,12 @@ interface ITag {
     getTagPosts: (tag: string) => void
 }
 
-export const Tag: React.FC<ITag> = ({ title, getTagPosts }) => {
-    function handleTagPosts() {
-        getTagPosts(title);
-    }
+const Tag: React.FC<ITag> = ({ title, getTagPosts }: ITag) => {
+  function handleTagPosts() {
+    getTagPosts(title);
+  }
 
-    return <div className='question-tag' onClick={handleTagPosts}>{ title }</div>
+  return <div className="question-tag" onClick={handleTagPosts}>{ title }</div>;
 };
+
+export default Tag;

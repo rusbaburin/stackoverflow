@@ -6,30 +6,30 @@ import { setQuestion, setQuestionLoading, setQuestionError } from '../../store/q
 import { IGetQuestionAsync } from '../../types/saga';
 
 export const getQuestionAsync = (questionId: number): IGetQuestionAsync => ({
-    type: SAGA_TYPE.GET_QUESTION_ASYNC,
-    questionId
-})
+  type: SAGA_TYPE.GET_QUESTION_ASYNC,
+  questionId,
+});
 
 function* fetchQuestion(action: IGetQuestionAsync) {
-    const questionId = action.questionId;
+  const { questionId } = action;
 
-    yield put(setQuestionLoading(true));
-    yield put(setQuestionError(false));
-    yield put(setQuestion());
+  yield put(setQuestionLoading(true));
+  yield put(setQuestionError(false));
+  yield put(setQuestion());
 
-    try {
-        const questionInfo = yield getQuestionInfo(questionId);
-        const answers = yield getAnswers(questionId);
+  try {
+    const questionInfo = yield getQuestionInfo(questionId);
+    const answers = yield getAnswers(questionId);
 
-        yield put(setQuestion(questionInfo, answers.items));
-    } catch (err) {
-        console.error(err);
-        yield put(setQuestionError(true));
-    }
+    yield put(setQuestion(questionInfo, answers.items));
+  } catch (err) {
+    console.error(err);
+    yield put(setQuestionError(true));
+  }
 
-    yield put(setQuestionLoading(false));
+  yield put(setQuestionLoading(false));
 }
 
 export function* watchGetQuestion() {
-    yield takeEvery(SAGA_TYPE.GET_QUESTION_ASYNC, fetchQuestion);
+  yield takeEvery(SAGA_TYPE.GET_QUESTION_ASYNC, fetchQuestion);
 }

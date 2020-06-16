@@ -1,8 +1,9 @@
+/* eslint-disable camelcase */
 import { ACTION_TYPE } from '../common/constants';
 import { SortType, SideBarType } from './constants';
 import { IQuestionInfo, IAnswer } from './response';
 
-//Question
+// Question
 export interface ISetQuestion {
     type: typeof ACTION_TYPE.SET_QUESTION,
     info: IQuestionInfo | null,
@@ -19,7 +20,7 @@ export interface ISetQuestionError {
     error: boolean
 }
 
-//Results
+// Results
 export interface IReplaceResults {
     type: typeof ACTION_TYPE.REPLACE_RESULTS;
     items: IQuestionInfo[];
@@ -49,7 +50,7 @@ export interface ISetResultsHasmore {
     has_more: boolean | null
 }
 
-//SideResults
+// SideResults
 export interface IReplaceSideResults {
     type: typeof ACTION_TYPE.REPLACE_SIDERESULTS,
     items: IQuestionInfo[],
@@ -67,7 +68,7 @@ export interface ISetSideResultsError {
     error: boolean
 }
 
-//Title
+// Title
 export interface ISetTitle {
     type: typeof ACTION_TYPE.SET_TITLE,
     title: string
@@ -79,7 +80,7 @@ export type RootActions =
             ISetQuestionError |
             IReplaceResults |
             IAddResults |
-            ISetResultsLoading | 
+            ISetResultsLoading |
             ISetResultsHasmore |
             IReplaceSideResults |
             ISetSideResultsLoading |
